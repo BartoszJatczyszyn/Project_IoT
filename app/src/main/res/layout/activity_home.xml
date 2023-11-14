@@ -6,25 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".Home">
 
-    <RelativeLayout
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:background="@color/teal_200">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_centerHorizontal="true"
-            android:text="Główna"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:gravity="center"
+            android:background="@color/teal_200">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="Głowna"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </RelativeLayout>
 
         <Button
             android:id="@+id/btn_logout"
@@ -32,9 +32,5 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="320dp"
             android:backgroundTint="@color/teal_200"
-            android:drawableLeft="@drawable/ic_logout"/>
-
-
+            android:drawableLeft="@drawable/ic_logout" />
     </RelativeLayout>
-
-</RelativeLayout>

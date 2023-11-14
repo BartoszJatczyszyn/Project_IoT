@@ -9,18 +9,20 @@
     <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_alignParentTop="true"
-        android:background="@color/material_dynamic_primary50">
+        android:gravity="center"
+        android:background="@color/teal_200">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
-            android:text="Alarm IoT"
+            android:layout_centerHorizontal="true"
+            android:text="Logowanie"
             android:textColor="@color/white"
             android:textSize="20sp" />
     </RelativeLayout>
@@ -49,7 +51,7 @@
 
     <Button
         android:id="@+id/btn_llogin"
-        android:backgroundTint="@color/material_dynamic_primary50"
+        android:backgroundTint="@color/teal_200"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/et_lpassword"
@@ -60,7 +62,7 @@
 
     <Button
         android:id="@+id/btn_lregister"
-        android:backgroundTint="@color/material_dynamic_primary50"
+        android:backgroundTint="#00320B"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
