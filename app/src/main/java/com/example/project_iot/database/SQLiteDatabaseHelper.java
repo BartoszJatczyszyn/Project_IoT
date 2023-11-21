@@ -1,4 +1,4 @@
-package com.example.project_iot;
+package com.example.project_iot.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,11 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class SQLiteDatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "login.db";
 
 
-    public DatabaseHelper(Context context) {
+    public SQLiteDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
 
