@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AlarmIoT</string>
+    <string name="btn_sensors">Czujniki</string>
+    <string name="btn_history">Historia</string>
+    <string name="btn_arm_all">Uzbrój wszystko</string>
+    <string name="btn_disarm_all">Rozbrój wszystkie</string>
 </resources>
