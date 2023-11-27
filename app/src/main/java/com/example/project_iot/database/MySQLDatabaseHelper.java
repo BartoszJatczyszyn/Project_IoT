@@ -2,12 +2,17 @@ package com.example.project_iot.database;
 
 import android.util.Log;
 
+import com.example.project_iot.objects.Alarm;
+import com.example.project_iot.objects.User;
+import com.example.project_iot.objects.devices.ADevice;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class MySQLDatabaseHelper implements IDatabaseHelper {
     private static String LOG_TAG = "MySQLDatabaseHelper";
@@ -20,6 +25,10 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         this.sqlConfig = sqlConfig;
     }
 
+    /**
+     * Opens connection
+     * @return true if connection established
+     */
     @Override
     public boolean open() {
 
@@ -51,6 +60,9 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
 
     }
 
+    /**
+     * Closes connection
+     */
     @Override
     public void close() {
         try {
@@ -60,19 +72,12 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         }
     }
 
-    private void close(Statement stat) {
-        this.close(stat, null);
-    }
-
-    private void close(Statement stat, ResultSet res) {
-        try {
-            if (stat != null && !stat.isClosed()) stat.close();
-            if (res != null && !res.isClosed()) res.close();
-        } catch (SQLException e) {
-            Log.e(LOG_TAG, Log.getStackTraceString(e));
-        }
-    }
-
+    /**
+     * Creates user
+     * @param username
+     * @param password
+     * @return created user id
+     */
     @Override
     public int insert(String username, String password) {
 
@@ -106,6 +111,11 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         return userId;
     }
 
+    /**
+     * Checks if user exists
+     * @param username
+     * @return true if user already exists
+     */
     @Override
     public boolean isUsernameTaken(String username) {
 
@@ -135,6 +145,12 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
 
     }
 
+    /**
+     * Checks user credentials
+     * @param username
+     * @param password
+     * @return true if user credentials are correct
+     */
     @Override
     public boolean checkLogin(String username, String password) {
         PreparedStatement stat = null;
@@ -161,5 +177,105 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         }
 
         return correct;
+    }
+
+    /**
+     * Loads device
+     *
+     * @param deviceId
+     * @return device
+     */
+    @Override
+    public ADevice getDevice(int deviceId) {
+        return null;
+    }
+
+    /**
+     * Updates device data
+     *
+     * @param deviceId
+     * @param newName
+     */
+    @Override
+    public void updateDeviceName(int deviceId, String newName) {
+
+    }
+
+    /**
+     * Updates device description
+     *
+     * @param deviceId
+     * @param newDescription
+     */
+    @Override
+    public void updateDeviceDescription(int deviceId, String newDescription) {
+
+    }
+
+    /**
+     * Updates device location
+     *
+     * @param deviceId
+     * @param newLocation
+     */
+    @Override
+    public void updateDeviceLocation(int deviceId, String newLocation) {
+
+    }
+
+    /**
+     * Updates device active status (active/not active)
+     *
+     * @param deviceId
+     * @param isActive
+     */
+    @Override
+    public void updateDeviceActiveStatus(int deviceId, boolean isActive) {
+
+    }
+
+    /**
+     * get all alarms by user devices (user.getDevices())
+     *
+     * @param user
+     * @return
+     */
+    @Override
+    public ArrayList<Alarm> getAllAlarms(User user) {
+        return null;
+    }
+
+    /**
+     * get active alarms by user devices (user.getDevices())
+     *
+     * @param user
+     * @return
+     */
+    @Override
+    public ArrayList<Alarm> getActiveAlarms(User user) {
+        return null;
+    }
+
+    /**
+     * Update alarm status info
+     *
+     * @param alarmId
+     * @param status
+     */
+    @Override
+    public void updateAlarmStatus(int alarmId, Alarm.Status status) {
+
+    }
+
+    private void close(Statement stat) {
+        this.close(stat, null);
+    }
+    private void close(Statement stat, ResultSet res) {
+        try {
+            if (stat != null && !stat.isClosed()) stat.close();
+            if (res != null && !res.isClosed()) res.close();
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+        }
     }
 }
