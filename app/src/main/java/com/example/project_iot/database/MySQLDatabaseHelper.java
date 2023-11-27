@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class MySQLDatabaseHelper implements IDatabaseHelper {
     private static String LOG_TAG = "MySQLDatabaseHelper";
     private static String USERS_TABLE = "users";
+    private static String DEVICE_TABLE = "devices";
     private SQLConfig sqlConfig;
 
     private Connection conn;
@@ -187,6 +188,36 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
      */
     @Override
     public ADevice getDevice(int deviceId) {
+
+        PreparedStatement stat = null;
+        ResultSet res = null;
+
+        try {
+            stat = conn.prepareStatement(" SELECT * FROM " + DEVICE_TABLE + " WHERE id_device = ?", Statement.RETURN_GENERATED_KEYS);
+            stat.setInt(1,deviceId);
+            res = stat.executeQuery();
+
+            if (res.next()) {
+                String deviceType = res.getString("device_type");
+                return new ADevice(ADevice.Type.valueOf(deviceType.toUpperCase())) {
+                    @Override
+                    public void loadSerializedAdditionalSettings(String json) {
+                    }
+                    @Override
+                    public String serializeAdditionalSettings() {
+                        return null;
+                    }
+                };
+            } else {
+                throw new SQLException("Creating user failed, no ID obtained.");
+            }
+
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+        } finally {
+            this.close(stat, res);
+        }
+
         return null;
     }
 
@@ -209,7 +240,6 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
      */
     @Override
     public void updateDeviceDescription(int deviceId, String newDescription) {
-
     }
 
     /**
