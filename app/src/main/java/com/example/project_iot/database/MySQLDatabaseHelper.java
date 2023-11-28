@@ -18,6 +18,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
     private static String LOG_TAG = "MySQLDatabaseHelper";
     private static String USERS_TABLE = "users";
     private static String DEVICE_TABLE = "devices";
+    private static String ALARMS_TABLE = "alarms";
     private SQLConfig sqlConfig;
 
     private Connection conn;
@@ -209,7 +210,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
                     }
                 };
             } else {
-                throw new SQLException("Creating user failed, no ID obtained.");
+                throw new SQLException("Getting device failed, no device retrieved.");
             }
 
         } catch (SQLException e) {
@@ -229,7 +230,19 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
      */
     @Override
     public void updateDeviceName(int deviceId, String newName) {
+        PreparedStatement stat = null;
+        ResultSet res = null;
 
+        try {
+            stat = conn.prepareStatement("UPDATE " + DEVICE_TABLE + " SET device_name = ? WHERE id_device = ?", Statement.RETURN_GENERATED_KEYS);
+            stat.setString(1,newName);
+            stat.setInt(2,deviceId);
+            stat.executeUpdate();
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+        } finally {
+            this.close(stat, res);
+        }
     }
 
     /**
@@ -240,6 +253,19 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
      */
     @Override
     public void updateDeviceDescription(int deviceId, String newDescription) {
+        PreparedStatement stat = null;
+        ResultSet res = null;
+
+        try {
+            stat = conn.prepareStatement("UPDATE " + DEVICE_TABLE + " SET device_desc = ? WHERE id_device = ?", Statement.RETURN_GENERATED_KEYS);
+            stat.setString(1,newDescription);
+            stat.setInt(2,deviceId);
+            stat.executeUpdate();
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+        } finally {
+            this.close(stat, res);
+        }
     }
 
     /**
@@ -250,7 +276,19 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
      */
     @Override
     public void updateDeviceLocation(int deviceId, String newLocation) {
+        PreparedStatement stat = null;
+        ResultSet res = null;
 
+        try {
+            stat = conn.prepareStatement("UPDATE " + DEVICE_TABLE + " SET location = ? WHERE id_device = ?", Statement.RETURN_GENERATED_KEYS);
+            stat.setString(1,newLocation);
+            stat.setInt(2,deviceId);
+            stat.executeUpdate();
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+        } finally {
+            this.close(stat, res);
+        }
     }
 
     /**
@@ -261,7 +299,24 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
      */
     @Override
     public void updateDeviceActiveStatus(int deviceId, boolean isActive) {
+        PreparedStatement stat = null;
+        ResultSet res = null;
 
+        int activity = 0;
+        if (isActive){
+            activity = 1;
+        }
+
+        try {
+            stat = conn.prepareStatement("UPDATE " + DEVICE_TABLE + " SET active = ? WHERE id_device = ?", Statement.RETURN_GENERATED_KEYS);
+            stat.setInt(1,activity);
+            stat.setInt(2,deviceId);
+            stat.executeUpdate();
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+        } finally {
+            this.close(stat, res);
+        }
     }
 
     /**
@@ -272,6 +327,30 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
      */
     @Override
     public ArrayList<Alarm> getAllAlarms(User user) {
+        PreparedStatement stat = null;
+        ResultSet res = null;
+
+        ArrayList<Alarm> alarms = new ArrayList<>();
+        try {
+            stat = conn.prepareStatement(" SELECT * FROM " + ALARMS_TABLE + " WHERE id_user = ?", Statement.RETURN_GENERATED_KEYS);
+            stat.setInt(1,user.getId());
+            res = stat.executeQuery();
+
+            while (res.next()) {
+                Alarm alarm = new Alarm();
+                alarm.setStatus(Alarm.Status.valueOf(res.getString("alarm_status").toUpperCase()));
+                alarm.setMessage(res.getString("alarm_message"));
+                alarm.setInsertDate(res.getTimestamp("insert_date"));
+                alarm.setUpdateDate(res.getTimestamp("update_date"));
+                alarm.setId(res.getInt("id_alarm"));
+                alarms.add(alarm);
+            }
+            return alarms;
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+        } finally {
+            this.close(stat, res);
+        }
         return null;
     }
 
@@ -282,7 +361,32 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
      * @return
      */
     @Override
-    public ArrayList<Alarm> getActiveAlarms(User user) {
+    public ArrayList<Alarm> getAlarmsWithStatus(User user,String status) {
+        PreparedStatement stat = null;
+        ResultSet res = null;
+
+        ArrayList<Alarm> alarms = new ArrayList<>();
+        try {
+            stat = conn.prepareStatement(" SELECT * FROM " + ALARMS_TABLE + " WHERE id_user = ? AND alarm_status = ? ", Statement.RETURN_GENERATED_KEYS);
+            stat.setInt(1,user.getId());
+            stat.setString(2,status);
+            res = stat.executeQuery();
+
+            while (res.next()) {
+                Alarm alarm = new Alarm();
+                alarm.setStatus(Alarm.Status.valueOf(res.getString("alarm_status").toUpperCase()));
+                alarm.setMessage(res.getString("alarm_message"));
+                alarm.setInsertDate(res.getTimestamp("insert_date"));
+                alarm.setUpdateDate(res.getTimestamp("update_date"));
+                alarm.setId(res.getInt("id_alarm"));
+                alarms.add(alarm);
+            }
+            return alarms;
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+        } finally {
+            this.close(stat, res);
+        }
         return null;
     }
 
@@ -294,7 +398,19 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
      */
     @Override
     public void updateAlarmStatus(int alarmId, Alarm.Status status) {
+        PreparedStatement stat = null;
+        ResultSet res = null;
 
+        try {
+            stat = conn.prepareStatement("UPDATE " + ALARMS_TABLE + " SET alarm_status = ? WHERE id_alarm = ?", Statement.RETURN_GENERATED_KEYS);
+            stat.setString(1,status.toString().toLowerCase());
+            stat.setInt(2,alarmId);
+            stat.executeUpdate();
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+        } finally {
+            this.close(stat, res);
+        }
     }
 
     private void close(Statement stat) {

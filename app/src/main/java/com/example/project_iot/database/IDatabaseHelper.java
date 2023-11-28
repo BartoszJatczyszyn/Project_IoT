@@ -89,7 +89,7 @@ public interface IDatabaseHelper {
      * @param user
      * @return
      */
-    public ArrayList<Alarm> getActiveAlarms(User user);
+    public ArrayList<Alarm> getAlarmsWithStatus(User user,String status);
 
     /**
      * Update alarm status info
