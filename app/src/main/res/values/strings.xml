@@ -1,7 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AlarmIoT</string>
-    <string name="btn_sensors">Czujniki</string>
-    <string name="btn_history">Historia</string>
-    <string name="btn_arm_all">Uzbrój wszystko</string>
-    <string name="btn_disarm_all">Rozbrój wszystkie</string>
+	<!-- rejestracja strings -->
+
+	<string name="app_name">Page 1</string>
+	<string name="ek_img_content">ExportKit Image</string>
+	<string name="zaloguj_string">zaloguj</string>
+	<string name="zarejestruj_string">zarejestruj</string>
+	<string name="rejestracja_string">rejestracja</string>
+	<string name="powtorz_haslo_string">powtorz haslo</string>
+	<string name="login_ek2_string">login</string>
+	<string name="haslo_ek2_string">haslo</string>
+
+	<!-- logowanie strings -->
+
+	<string name="login_ek4_string">login</string>
+	<string name="haslo_ek4_string">haslo</string>
+	<string name="logowanie_ek3_string">logowanie</string>
+
 </resources>

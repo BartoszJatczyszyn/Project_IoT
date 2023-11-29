@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project_iot.R;
@@ -19,8 +21,25 @@ import com.example.project_iot.utils.DigestUtils;
 public class Registration extends AppCompatActivity {
     private static Activity activity;
 
-    EditText et_username, et_password, et_cpassword;
-    Button btn_register, btn_login;
+    private View _bg__rejestracja;
+    private View _bg___button_zaloguj_si__ek1;
+    private View rectangle_2;
+    private TextView zaloguj;
+    private View _bg___button_zarejestruj_sie_ek1;
+    private View rectangle_3;
+    private TextView zarejestruj;
+    private TextView rejestracja;
+    private ImageView image_2;
+    private View _bg__group_4_ek1;
+    private View rectangle_1;
+    private EditText powtorz_haslo;
+    private View _bg__login_ek1;
+    private View rectangle_1_ek1;
+    private EditText login_ek4;
+    private View _bg__haslo_ek1;
+    private View rectangle_1_ek2;
+    private EditText haslo_ek4;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +48,26 @@ public class Registration extends AppCompatActivity {
 
         activity = this;
 
-        et_username = (EditText)findViewById(R.id.et_username);
-        et_password = (EditText)findViewById(R.id.et_password);
-        et_cpassword = (EditText)findViewById(R.id.et_cpassword);
-        btn_register = (Button)findViewById(R.id.btn_register);
-        btn_login = (Button)findViewById(R.id.btn_login);
+        _bg__rejestracja = (View) findViewById(R.id._bg__rejestracja);
+        _bg___button_zaloguj_si__ek1 = (View) findViewById(R.id._bg___button_zaloguj_si__ek1);
+        rectangle_2 = (View) findViewById(R.id.rectangle_2);
+        zaloguj = (TextView) findViewById(R.id.zaloguj);
+        _bg___button_zarejestruj_sie_ek1 = (View) findViewById(R.id._bg___button_zarejestruj_sie_ek1);
+        rectangle_3 = (View) findViewById(R.id.rectangle_3);
+        zarejestruj = (TextView) findViewById(R.id.zarejestruj);
+        rejestracja = (TextView) findViewById(R.id.rejestracja);
+        image_2 = (ImageView) findViewById(R.id.image_2);
+        _bg__group_4_ek1 = (View) findViewById(R.id._bg__group_4_ek1);
+        rectangle_1 = (View) findViewById(R.id.rectangle_1);
+        powtorz_haslo = (EditText) findViewById(R.id.powtorz_haslo);
+        _bg__login_ek1 = (View) findViewById(R.id._bg__login_ek1);
+        rectangle_1_ek1 = (View) findViewById(R.id.rectangle_1_ek1);
+        login_ek4 = (EditText) findViewById(R.id.login_ek4);
+        _bg__haslo_ek1 = (View) findViewById(R.id._bg__haslo_ek1);
+        rectangle_1_ek2 = (View) findViewById(R.id.rectangle_1_ek2);
+        haslo_ek4 = (EditText) findViewById(R.id.haslo_ek4);
 
-        btn_login.setOnClickListener(new View.OnClickListener() {
+        _bg___button_zaloguj_si__ek1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Registration.this, Login.class);
@@ -43,12 +75,12 @@ public class Registration extends AppCompatActivity {
             }
         });
 
-        btn_register.setOnClickListener(new View.OnClickListener() {
+        _bg___button_zarejestruj_sie_ek1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = et_username.getText().toString();
-                String password = et_password.getText().toString();
-                String confirm_password = et_cpassword.getText().toString();
+                String username = login_ek4.getText().toString();
+                String password = haslo_ek4.getText().toString();
+                String confirm_password = powtorz_haslo.getText().toString();
 
                 if(username.equals("") || password.equals("") || confirm_password.equals("")){
                     Toast.makeText(getApplicationContext(), "Zostało puste pole", Toast.LENGTH_SHORT).show();
@@ -74,9 +106,9 @@ public class Registration extends AppCompatActivity {
                                         iDatabaseHelper.close();
                                         activity.runOnUiThread(() -> {
                                             Toast.makeText(getApplicationContext(), "Zarejestrowano i zalogowano", Toast.LENGTH_SHORT).show();
-                                            et_username.setText("");
-                                            et_password.setText("");
-                                            et_cpassword.setText("");
+                                            login_ek4.setText("");
+                                            haslo_ek4.setText("");
+                                            powtorz_haslo.setText("");
                                             openHome();
                                         });
                                     }
