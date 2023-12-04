@@ -3,6 +3,7 @@ package com.example.project_iot.database;
 import android.util.Log;
 
 import com.example.project_iot.objects.Alarm;
+import com.example.project_iot.objects.DeviceLog;
 import com.example.project_iot.objects.User;
 import com.example.project_iot.objects.devices.ADevice;
 
@@ -413,6 +414,28 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         }
     }
 
+    /**
+     * Get device ID and password by serial number
+     *
+     * @param serialNumber
+     * @return DevicePairingInfo
+     */
+    @Override
+    public DevicePairingInfo getDevicePairingInfo(int serialNumber) {
+        return null;
+    }
+
+    /**
+     * Gets latest data log from device
+     *
+     * @param deviceId
+     * @return DeviceLog
+     */
+    @Override
+    public DeviceLog getLatestDataLog(int deviceId) {
+        return null;
+    }
+
     private void close(Statement stat) {
         this.close(stat, null);
     }
@@ -422,6 +445,25 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
             if (res != null && !res.isClosed()) res.close();
         } catch (SQLException e) {
             Log.e(LOG_TAG, Log.getStackTraceString(e));
+        }
+    }
+
+    public class DevicePairingInfo {
+
+        private int serialNumber;
+        private String password;
+
+        public DevicePairingInfo(int serialNumber, String password) {
+            this.serialNumber = serialNumber;
+            this.password = password;
+        }
+
+        public int getSerialNumber() {
+            return serialNumber;
+        }
+
+        public String getPassword() {
+            return password;
         }
     }
 }
