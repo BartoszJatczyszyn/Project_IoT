@@ -8,7 +8,8 @@ public class DeviceLog {
         CRITICAL,
         WARNING,
         ERROR,
-        INFO
+        INFO,
+        TEMP
     }
 
     private Type logType;

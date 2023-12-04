@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class MySQLDatabaseHelper implements IDatabaseHelper {
@@ -20,6 +21,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
     private static String USERS_TABLE = "users";
     private static String DEVICE_TABLE = "devices";
     private static String ALARMS_TABLE = "alarms";
+    private static String LOGS_TABLE = "logs";
     private SQLConfig sqlConfig;
 
     private Connection conn;
@@ -422,6 +424,29 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
      */
     @Override
     public DevicePairingInfo getDevicePairingInfo(int serialNumber) {
+
+        PreparedStatement stat = null;
+        ResultSet res = null;
+
+        try {
+            stat = conn.prepareStatement(" SELECT * FROM " + DEVICE_TABLE + " WHERE serial_number = ?", Statement.RETURN_GENERATED_KEYS);
+            stat.setInt(1,serialNumber);
+            res = stat.executeQuery();
+
+            if (res.next()) {
+                String password = res.getString("device_password");
+                int deviceId = res.getInt("id_device");
+                return new DevicePairingInfo(deviceId,password);
+            } else {
+                throw new SQLException("Getting device pairing info failed, no pairing info retrieved.");
+            }
+
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+        } finally {
+            this.close(stat, res);
+        }
+
         return null;
     }
 
@@ -433,6 +458,31 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
      */
     @Override
     public DeviceLog getLatestDataLog(int deviceId) {
+
+        PreparedStatement stat = null;
+        ResultSet res = null;
+
+        try {
+            stat = conn.prepareStatement("SELECT * FROM " + LOGS_TABLE + " WHERE id_device = ? ORDER BY insert_date DESC LIMIT 1", Statement.RETURN_GENERATED_KEYS);
+            stat.setInt(1,deviceId);
+            res = stat.executeQuery();
+
+            if (res.next()) {
+                String logType = res.getString("log_type");
+                String logContent = res.getString("log_content");
+                Timestamp timestamp = res.getTimestamp("insert_date");
+                return new DeviceLog(DeviceLog.Type.valueOf(logType.toUpperCase()),logContent,timestamp);
+            } else {
+                throw new SQLException("Getting device failed, no data log retrieved.");
+            }
+
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+        } finally {
+            this.close(stat, res);
+        }
+
+
         return null;
     }
 
