@@ -1,9 +1,11 @@
 package com.example.project_iot.database;
 
 import com.example.project_iot.objects.Alarm;
+import com.example.project_iot.objects.DeviceLog;
 import com.example.project_iot.objects.User;
 import com.example.project_iot.objects.devices.ADevice;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public interface IDatabaseHelper {
@@ -89,11 +91,27 @@ public interface IDatabaseHelper {
      * @param user
      * @return
      */
-    public ArrayList<Alarm> getAlarmsWithStatus(User user,String status);
+    public ArrayList<Alarm> getAlarmsWithStatus(User user, String status);
 
     /**
      * Update alarm status info
+     * @param alarmId
+     * @param status
      */
     public void updateAlarmStatus(int alarmId, Alarm.Status status);
+
+    /**
+     * Get device ID and password by serial number
+     * @param serialNumber
+     * @return DevicePairingInfo
+     */
+    public MySQLDatabaseHelper.DevicePairingInfo getDevicePairingInfo(int serialNumber);
+
+    /**
+     * Gets latest data log from device
+     * @param deviceId
+     * @return DeviceLog
+     */
+    public DeviceLog getLatestDataLog(int deviceId);
 
 }
