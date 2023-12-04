@@ -450,16 +450,16 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
 
     public class DevicePairingInfo {
 
-        private int serialNumber;
+        private int deviceId;
         private String password;
 
-        public DevicePairingInfo(int serialNumber, String password) {
-            this.serialNumber = serialNumber;
+        public DevicePairingInfo(int deviceId, String password) {
+            this.deviceId = deviceId;
             this.password = password;
         }
 
-        public int getSerialNumber() {
-            return serialNumber;
+        public int getDeviceId() {
+            return deviceId;
         }
 
         public String getPassword() {
