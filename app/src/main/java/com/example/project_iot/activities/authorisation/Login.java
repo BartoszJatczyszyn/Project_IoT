@@ -66,19 +66,6 @@ public class Login extends AppCompatActivity {
                 new Thread() {
                     @Override
                     public void run(){
-                        try {
-                            SftpHelper sftpHelper = new SftpHelper(getApplicationContext());
-                            Log.d("CINUS", "Cos zadzialalo!!");
-                            Log.d("CINUS", "client.pwd().toString(): " + sftpHelper.getWorkingDir());
-
-                            sftpHelper.getFile("test.txt", getApplicationContext().getFilesDir() + "/final_test.txt");
-                        } catch (JSchException | SftpException | IOException e) {
-                            Log.d("CINUS", "Exception occured: " + e.toString());
-                            e.printStackTrace();
-                            Log.d("CINUS", "Cos sie wydupilo!");
-                        }
-                    }
-                }.start();
                 String username = txt_username.getText().toString();
                 String password = DigestUtils.sha256(txt_password.getText().toString());
 
