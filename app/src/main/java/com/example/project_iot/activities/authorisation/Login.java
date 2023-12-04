@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +17,15 @@ import com.example.project_iot.database.DatabaseHelperFactory;
 import com.example.project_iot.database.IDatabaseHelper;
 import com.example.project_iot.database.SQLiteDatabaseHelper;
 import com.example.project_iot.utils.DigestUtils;
+import com.example.project_iot.utils.SftpHelper;
+import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.SftpException;
+
+import net.schmizz.sshj.SSHClient;
+
+import java.io.IOException;
+import java.util.Vector;
 
 public class Login extends AppCompatActivity {
 
@@ -52,6 +63,21 @@ public class Login extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                new Thread() {
+                    @Override
+                    public void run(){
+                        try {
+                            SftpHelper sftpHelper = new SftpHelper(getApplicationContext());
+                            Log.d("CINUS", "Cos zadzialalo!!");
+                            Log.d("CINUS", "client.pwd().toString(): " + sftpHelper.getWorkingDir());
+
+                            sftpHelper.getFile("test.txt", getApplicationContext().getFilesDir() + "/another_text.txt");
+                        } catch (JSchException | SftpException e) {
+                            Log.d("CINUS", "Exception occured: " + e.toString());
+                            Log.d("CINUS", "Cos sie wydupilo!");
+                        }
+                    }
+                }.start();
                 String username = txt_username.getText().toString();
                 String password = DigestUtils.sha256(txt_password.getText().toString());
 
