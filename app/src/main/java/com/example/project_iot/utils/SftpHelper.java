@@ -2,7 +2,13 @@ package com.example.project_iot.utils;
 
 import android.util.Log;
 
-import java.util.Vector;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.Properties;
 
 import android.content.Context;
 
@@ -13,9 +19,11 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
 
 public class SftpHelper {
-    public SftpHelper(Context context) throws JSchException {
+    public SftpHelper(Context context) throws JSchException, IOException {
         this.context = context;
-        initializeSessionAndSftpChannel();
+        initAuthCredentials();
+        initSessionAndSftpChannel();
+        eraseAuthCredentials();
     }
 
     public String getWorkingDir() throws JSchException, SftpException {
@@ -32,21 +40,31 @@ public class SftpHelper {
 
         channelSftp.get(remoteSource, destination);
     }
-    private void initializeSessionAndSftpChannel() throws JSchException {
-        Log.d("CINUS", "Debug print!");
-        Log.d("CINUS", "app dir: " + context.getFilesDir());
-
+    private void initSessionAndSftpChannel() throws JSchException {
         JSch jSch = new JSch();
-        jSch.addIdentity(context.getFilesDir() + "/ftp-key.pem");
+        jSch.addIdentity("sftp_key", this.authKey.getBytes(), null, null);
         Session jschSession = jSch.getSession(username, remoteHost, 22);
         jschSession.setConfig("StrictHostKeyChecking", "no");
         jschSession.connect();
         channelSftp = (ChannelSftp) jschSession.openChannel("sftp");
     }
 
+    private void initAuthCredentials() throws IOException {
+        Properties properties = new Properties();
+        InputStream inputStream = context.getAssets().open(propertiesFilename);
+        properties.load(inputStream);
+        this.authKey = properties.getProperty("sftp_key");
+    }
+
+    private void eraseAuthCredentials() {
+        authKey = "";
+    }
+
     private static final String remoteHost = "20.107.176.118";
     private static final String username = "ftp";
+    private static final String propertiesFilename = "keys.properties";
     private final Context context;
+    private String authKey;
     private ChannelSftp channelSftp;
 
 }

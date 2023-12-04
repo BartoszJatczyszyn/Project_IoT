@@ -71,9 +71,10 @@ public class Login extends AppCompatActivity {
                             Log.d("CINUS", "Cos zadzialalo!!");
                             Log.d("CINUS", "client.pwd().toString(): " + sftpHelper.getWorkingDir());
 
-                            sftpHelper.getFile("test.txt", getApplicationContext().getFilesDir() + "/another_text.txt");
-                        } catch (JSchException | SftpException e) {
+                            sftpHelper.getFile("test.txt", getApplicationContext().getFilesDir() + "/final_test.txt");
+                        } catch (JSchException | SftpException | IOException e) {
                             Log.d("CINUS", "Exception occured: " + e.toString());
+                            e.printStackTrace();
                             Log.d("CINUS", "Cos sie wydupilo!");
                         }
                     }
