@@ -40,9 +40,16 @@ public interface IDatabaseHelper {
      * Checks user credentials
      * @param username
      * @param password
-     * @return true if user credentials are correct
+     * @return userId or -1 if not authorised
      */
-    public boolean checkLogin(String username, String password);
+    public int authoriseUser(String username, String password);
+
+    /**
+     * Gets list of user devices
+     * @param userId
+     * @return
+     */
+    public ArrayList<Integer> getUserDevices(int userId);
 
     /**
      * Loads device
@@ -91,7 +98,7 @@ public interface IDatabaseHelper {
      * @param user
      * @return
      */
-    public ArrayList<Alarm> getAlarmsWithStatus(User user, String status);
+    public ArrayList<Alarm> getAlarmsWithStatus(int userId, String status);
 
     /**
      * Update alarm status info
