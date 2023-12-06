@@ -17,12 +17,6 @@ import com.example.project_iot.database.DatabaseHelperFactory;
 import com.example.project_iot.database.IDatabaseHelper;
 import com.example.project_iot.database.SQLiteDatabaseHelper;
 import com.example.project_iot.utils.DigestUtils;
-import com.example.project_iot.utils.SftpHelper;
-import com.jcraft.jsch.ChannelSftp;
-import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.SftpException;
-
-import net.schmizz.sshj.SSHClient;
 
 import java.io.IOException;
 import java.util.Vector;
@@ -63,9 +57,7 @@ public class Login extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread() {
-                    @Override
-                    public void run(){
+
                 String username = txt_username.getText().toString();
                 String password = DigestUtils.sha256(txt_password.getText().toString());
 
@@ -81,13 +73,14 @@ public class Login extends AppCompatActivity {
                             return;
                         }
 
-                        Boolean checkLogin = iDatabaseHelper.checkLogin(username, password);
+                        int userId = iDatabaseHelper.authoriseUser(username, password);
 
-                        if (checkLogin == true) {
+                        if (userId >= 0) {
+
                             iDatabaseHelper.close();
                             activity.runOnUiThread(() -> {
                                 Toast.makeText(getApplicationContext(), "Zalogowano", Toast.LENGTH_SHORT).show();
-                                openHome();
+                                openHome(userId);
                             });
 
                         } else {
@@ -102,9 +95,10 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-    public void openHome() {
+    public void openHome(int userId) {
         activity = null;
-        Intent intent=new Intent(this, Home.class);
+        Intent intent=new Intent(getBaseContext(), Home.class);
+        intent.putExtra("USER_ID", userId);
         startActivity(intent);
     }
 }

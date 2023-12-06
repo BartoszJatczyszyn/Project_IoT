@@ -77,7 +77,7 @@ public class Registration extends AppCompatActivity {
                                             et_username.setText("");
                                             et_password.setText("");
                                             et_cpassword.setText("");
-                                            openHome();
+                                            openHome(userId);
                                         });
                                     }
                                 }else{
@@ -96,8 +96,10 @@ public class Registration extends AppCompatActivity {
             }
         });
     }
-    public void openHome() {
-        Intent intent=new Intent(this, Home.class);
+    public void openHome(int userId) {
+        activity = null;
+        Intent intent=new Intent(getBaseContext(), Home.class);
+        intent.putExtra("USER_ID", userId);
         startActivity(intent);
     }
 }
