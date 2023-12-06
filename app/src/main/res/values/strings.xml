@@ -2,19 +2,19 @@
 <resources>
 	<!-- rejestracja strings -->
 
-	<string name="app_name">Page 1</string>
+	<string name="app_name">Alarm_IoT</string>
 	<string name="ek_img_content">ExportKit Image</string>
-	<string name="zaloguj_string">zaloguj</string>
-	<string name="zarejestruj_string">zarejestruj</string>
-	<string name="rejestracja_string">rejestracja</string>
-	<string name="powtorz_haslo_string">powtorz haslo</string>
+	<string name="zaloguj_string">ZALOGUJ SIĘ</string>
+	<string name="zarejestruj_string">ZAREJESTRUJ SIĘ</string>
+	<string name="rejestracja_string">REJESTRACJA</string>
+	<string name="powtorz_haslo_string">powtórz hasło</string>
 	<string name="login_ek2_string">login</string>
-	<string name="haslo_ek2_string">haslo</string>
+	<string name="haslo_ek2_string">hasło</string>
 
 	<!-- logowanie strings -->
 
 	<string name="login_ek4_string">login</string>
-	<string name="haslo_ek4_string">haslo</string>
-	<string name="logowanie_ek3_string">logowanie</string>
+	<string name="haslo_ek4_string">hasło</string>
+	<string name="logowanie_ek3_string">LOGOWANIE</string>
 
 </resources>

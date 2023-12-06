@@ -23,10 +23,8 @@ public class Login extends AppCompatActivity {
     private static Activity activity;
 
     private View _bg__logowanie_ek2;
-    private View _bg__login;
     private View rectangle_1;
     private EditText login_ek4;
-    private View _bg__haslo;
     private View rectangle_1_ek1;
     private EditText haslo_ek4;
     private View _bg__button_zaloguj_si_;
@@ -51,10 +49,8 @@ public class Login extends AppCompatActivity {
         SQLiteDatabaseHelper = new SQLiteDatabaseHelper(this);
 
         _bg__logowanie_ek2 = (View) findViewById(R.id._bg__logowanie_ek2);
-        _bg__login = (View) findViewById(R.id._bg__login);
         rectangle_1 = (View) findViewById(R.id.rectangle_1);
         login_ek4 = (EditText) findViewById(R.id.login_ek4);
-        _bg__haslo = (View) findViewById(R.id._bg__haslo);
         rectangle_1_ek1 = (View) findViewById(R.id.rectangle_1_ek1);
         haslo_ek4 = (EditText) findViewById(R.id.haslo_ek4);
         _bg__button_zaloguj_si_ = (View) findViewById(R.id._bg__button_zaloguj_si_);

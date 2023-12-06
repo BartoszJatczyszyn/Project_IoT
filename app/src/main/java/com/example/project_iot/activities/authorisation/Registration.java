@@ -30,13 +30,10 @@ public class Registration extends AppCompatActivity {
     private TextView zarejestruj;
     private TextView rejestracja;
     private ImageView image_2;
-    private View _bg__group_4_ek1;
     private View rectangle_1;
     private EditText powtorz_haslo;
-    private View _bg__login_ek1;
     private View rectangle_1_ek1;
     private EditText login_ek4;
-    private View _bg__haslo_ek1;
     private View rectangle_1_ek2;
     private EditText haslo_ek4;
 
@@ -48,24 +45,21 @@ public class Registration extends AppCompatActivity {
 
         activity = this;
 
-        _bg__rejestracja = (View) findViewById(R.id._bg__rejestracja);
+//        _bg__rejestracja = (View) findViewById(R.id._bg__rejestracja);
         _bg___button_zaloguj_si__ek1 = (View) findViewById(R.id._bg___button_zaloguj_si__ek1);
-        rectangle_2 = (View) findViewById(R.id.rectangle_2);
-        zaloguj = (TextView) findViewById(R.id.zaloguj);
-        _bg___button_zarejestruj_sie_ek1 = (View) findViewById(R.id._bg___button_zarejestruj_sie_ek1);
-        rectangle_3 = (View) findViewById(R.id.rectangle_3);
-        zarejestruj = (TextView) findViewById(R.id.zarejestruj);
-        rejestracja = (TextView) findViewById(R.id.rejestracja);
-        image_2 = (ImageView) findViewById(R.id.image_2);
-        _bg__group_4_ek1 = (View) findViewById(R.id._bg__group_4_ek1);
-        rectangle_1 = (View) findViewById(R.id.rectangle_1);
-        powtorz_haslo = (EditText) findViewById(R.id.powtorz_haslo);
-        _bg__login_ek1 = (View) findViewById(R.id._bg__login_ek1);
-        rectangle_1_ek1 = (View) findViewById(R.id.rectangle_1_ek1);
-        login_ek4 = (EditText) findViewById(R.id.login_ek4);
-        _bg__haslo_ek1 = (View) findViewById(R.id._bg__haslo_ek1);
-        rectangle_1_ek2 = (View) findViewById(R.id.rectangle_1_ek2);
-        haslo_ek4 = (EditText) findViewById(R.id.haslo_ek4);
+//        rectangle_2 = (View) findViewById(R.id.rectangle_2);
+//        zaloguj = (TextView) findViewById(R.id.zaloguj);
+//        _bg___button_zarejestruj_sie_ek1 = (View) findViewById(R.id._bg___button_zarejestruj_sie_ek1);
+//        rectangle_3 = (View) findViewById(R.id.rectangle_3);
+//        zarejestruj = (TextView) findViewById(R.id.zarejestruj);
+//        rejestracja = (TextView) findViewById(R.id.rejestracja);
+//        image_2 = (ImageView) findViewById(R.id.image_2);
+//        rectangle_1 = (View) findViewById(R.id.rectangle_1);
+//        powtorz_haslo = (EditText) findViewById(R.id.powtorz_haslo);
+//        rectangle_1_ek1 = (View) findViewById(R.id.rectangle_1_ek1);
+//        login_ek4 = (EditText) findViewById(R.id.login_ek4);
+//        rectangle_1_ek2 = (View) findViewById(R.id.rectangle_1_ek2);
+//        haslo_ek4 = (EditText) findViewById(R.id.haslo_ek4);
 
         _bg___button_zaloguj_si__ek1.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -20,7 +20,7 @@
      *
      */
     -->
-    <ScrollView android:id="@+id/activity_login"
+    <RelativeLayout android:id="@+id/activity_login"
         android:layout_width="wrap_content"
         android:layout_height="match_parent" >
 
@@ -41,23 +41,16 @@
                     android:background="@drawable/_bg__logowanie_ek2_shape"
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="0dp"
-                    android:layout_width="410dp"
-                    android:layout_height="800dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
 
                 <RelativeLayout android:id="@+id/login"
-                    android:layout_marginTop="395dp"
-                    android:layout_marginStart="25dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     >
-
-                    <View   android:id="@+id/_bg__login"
-                        android:background="@drawable/_bg__login_shape"
-                        android:layout_marginStart="0dp"
-                        android:layout_marginTop="0dp"
-                        android:layout_width="310dp"
-                        android:layout_height="50dp" />
 
                     <View   android:id="@+id/rectangle_1"
                         android:background="@drawable/rectangle_1_shape"
@@ -72,7 +65,7 @@
                         android:gravity="center"
                         android:textSize="24sp"
                         android:textColor="@color/_bg__login_color"
-                        android:layout_marginLeft="-4dp"
+                        android:layout_marginLeft="0dp"
                         android:layout_marginTop="0dp"
                         android:layout_width="317.4dp"
                         android:layout_height="57.4dp"
@@ -84,18 +77,11 @@
 
 
                 <RelativeLayout android:id="@+id/haslo"
-                    android:layout_marginTop="465dp"
-                    android:layout_marginStart="25dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="400dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     >
-
-                    <View   android:id="@+id/_bg__haslo"
-                        android:background="@drawable/_bg__haslo_shape"
-                        android:layout_marginStart="0dp"
-                        android:layout_marginTop="0dp"
-                        android:layout_width="310dp"
-                        android:layout_height="50dp" />
 
                     <View   android:id="@+id/rectangle_1_ek1"
                         android:background="@drawable/rectangle_1_ek1_shape"
@@ -110,7 +96,7 @@
                         android:gravity="center"
                         android:textSize="24sp"
                         android:textColor="@color/_bg__login_color"
-                        android:layout_marginLeft="-4dp"
+                        android:layout_marginLeft="0dp"
                         android:layout_marginTop="0dp"
                         android:layout_width="317.4dp"
                         android:layout_height="57.4dp"
@@ -122,8 +108,8 @@
 
 
                 <RelativeLayout android:id="@+id/button_zaloguj_si_"
-                    android:layout_marginTop="630dp"
-                    android:layout_marginStart="68dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="580dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     >
@@ -148,7 +134,7 @@
                         android:gravity="center"
                         android:textSize="24sp"
                         android:textColor="@color/_bg__login_color"
-                        android:layout_marginLeft="-4dp"
+                        android:layout_marginLeft="0dp"
                         android:layout_marginTop="0dp"
                         android:layout_width="231.4dp"
                         android:layout_height="57.4dp"
@@ -159,8 +145,8 @@
 
 
                 <RelativeLayout android:id="@+id/button_zarejestruj_sie"
-                    android:layout_marginTop="700dp"
-                    android:layout_marginStart="68dp"
+                    android:layout_marginTop="650dp"
+                    android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     >
@@ -185,7 +171,7 @@
                         android:gravity="center"
                         android:textSize="24sp"
                         android:textColor="@color/_bg__login_color"
-                        android:layout_marginLeft="-4dp"
+                        android:layout_marginLeft="0dp"
                         android:layout_marginTop="0dp"
                         android:layout_width="231.4dp"
                         android:layout_height="57.4dp"
@@ -196,7 +182,7 @@
 
                 <TextView android:id="@+id/logowanie_ek3"
                     android:textStyle="bold"
-                    android:layout_gravity="center_horizontal|center"
+                    android:layout_centerHorizontal="true"
                     android:gravity="center"
                     android:textSize="36sp"
                     android:textColor="@color/_bg__login_color"
@@ -210,7 +196,7 @@
                 <ImageView android:id="@+id/image_1"
                     android:src="@drawable/image_1"
                     android:contentDescription="image_1"
-                    android:layout_marginStart="126dp"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="145dp"
                     android:layout_width="107.22dp"
                     android:layout_height="100dp" />
@@ -218,5 +204,5 @@
             </RelativeLayout>
         </RelativeLayout>
 
-    </ScrollView>
+    </RelativeLayout>
 </RelativeLayout>
