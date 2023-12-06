@@ -154,14 +154,13 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
      * Checks user credentials
      * @param username
      * @param password
-     * @return true if user credentials are correct
+     * @return userId or -1 if not authorised
      */
-    @Override
-    public boolean checkLogin(String username, String password) {
+    public int authoriseUser(String username, String password) {
         PreparedStatement stat = null;
         ResultSet res = null;
 
-        boolean correct = false;
+        int userId = -1;
 
         try {
 
@@ -172,7 +171,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
             res = stat.executeQuery();
 
             if (res.next()) {
-                correct = true;
+                userId = res.getInt("user_id");
             }
 
         } catch (SQLException e) {
@@ -181,7 +180,18 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
             this.close(stat, res);
         }
 
-        return correct;
+        return userId;
+    }
+
+    /**
+     * Gets list of user devices
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public ArrayList<Integer> getUserDevices(int userId) {
+        return null;
     }
 
     /**
@@ -364,14 +374,14 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
      * @return
      */
     @Override
-    public ArrayList<Alarm> getAlarmsWithStatus(User user,String status) {
+    public ArrayList<Alarm> getAlarmsWithStatus(int userId,String status) {
         PreparedStatement stat = null;
         ResultSet res = null;
 
         ArrayList<Alarm> alarms = new ArrayList<>();
         try {
             stat = conn.prepareStatement(" SELECT * FROM " + ALARMS_TABLE + " WHERE id_user = ? AND alarm_status = ? ", Statement.RETURN_GENERATED_KEYS);
-            stat.setInt(1,user.getId());
+            stat.setInt(1, userId);
             stat.setString(2,status);
             res = stat.executeQuery();
 
