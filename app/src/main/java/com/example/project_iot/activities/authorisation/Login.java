@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project_iot.R;
@@ -25,8 +27,11 @@ public class Login extends AppCompatActivity {
 
     private static Activity activity;
 
-    Button btn_register, btn_login;
-    EditText txt_username, txt_password;
+    private EditText login;
+    private EditText haslo;
+    private Button zaloguj;
+    private Button zarejestruj;
+
 
     com.example.project_iot.database.SQLiteDatabaseHelper SQLiteDatabaseHelper;
 
@@ -40,13 +45,12 @@ public class Login extends AppCompatActivity {
 
         SQLiteDatabaseHelper = new SQLiteDatabaseHelper(this);
 
-        txt_username = (EditText)findViewById(R.id.et_lusername);
-        txt_password = (EditText)findViewById(R.id.et_lpassword);
+        login = (EditText) findViewById(R.id.login);
+        haslo = (EditText) findViewById(R.id.haslo);
+        zaloguj = (Button) findViewById(R.id.zaloguj);
+        zarejestruj = (Button) findViewById(R.id.zarejestruj);
 
-        btn_login = (Button)findViewById(R.id.btn_llogin);
-        btn_register = (Button)findViewById(R.id.btn_lregister);
-
-        btn_register.setOnClickListener(new View.OnClickListener() {
+        zarejestruj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Login.this, Registration.class);
@@ -54,12 +58,12 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        btn_login.setOnClickListener(new View.OnClickListener() {
+        zaloguj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String username = txt_username.getText().toString();
-                String password = DigestUtils.sha256(txt_password.getText().toString());
+                String username = login.getText().toString();
+                String password = DigestUtils.sha256(haslo.getText().toString());
 
                 new Thread() {
                     @Override

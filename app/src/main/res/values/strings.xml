@@ -1,7 +1,26 @@
 <resources>
     <string name="app_name">AlarmIoT</string>
-    <string name="btn_sensors">Czujniki</string>
-    <string name="btn_history">Historia</string>
-    <string name="btn_arm_all">Uzbrój wszystko</string>
-    <string name="btn_disarm_all">Rozbrój wszystkie</string>
+    <string name="czujniki_string">Czujniki</string>
+    <string name="historia_string">Historia</string>
+    <string name="uzbrój_wszystko_string">Uzbrój wszystko</string>
+    <string name="rozbrój_wszystkie_string">Rozbrój wszystkie</string>
+	<string name="zaloguj_string">Zaloguj</string>
+	<string name="zarejestruj_string">Zarejestruj</string>
+	<string name="rejestracja_string">Rejestracja</string>
+	<string name="powtorz_haslo_string">Powtórz hasło</string>
+	<string name="login_string">Login</string>
+	<string name="haslo_string">Hasło</string>
+	<string name="logowanie_string">Logowanie</string>
+	<string name="alert_string">Alert</string>
+	<string name="menu_string">Menu</string>
+	<string name="za_acz_string">Załącz</string>
+	<string name="wszystkie_string">Wszystkie</string>
+	<string name="rozbroj_string">Rozbrój</string>
+	<string name="historia_naruszen_string">Historia naruszeń</string>
+	<string name="powiadomienia_string">Powiadomienia</string>
+	<string name="czujnik_1_string">Czujnik 1</string>
+	<string name="czujnik_2_string">Czujnik 2</string>
+	<string name="czujnik_3_string">Czujnik 3</string>
+	<string name="on_string">on</string>
+	<string name="off_string">off</string>
 </resources>

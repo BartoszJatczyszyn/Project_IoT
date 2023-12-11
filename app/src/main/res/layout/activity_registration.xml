@@ -1,87 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/yellow"
     tools:context=".activities.authorisation.Registration">
 
     <RelativeLayout
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:background="@color/teal_200">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:text="Rejestracja"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:text="@string/rejestracja_string"
+            android:textColor="@color/black"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:src="@drawable/image_1"
+            android:layout_marginTop="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/et_username"
+    <RelativeLayout
+        android:background="@drawable/rectangle_button"
+        android:layout_marginTop="335dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/login"
+            android:backgroundTint="@color/white"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="-4dp"
+            android:layout_marginTop="0dp"
+            android:layout_width="317.4dp"
+            android:layout_height="57.4dp"
+            android:hint="@string/login_string"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="@drawable/rectangle_button"
+        android:layout_marginTop="400dp"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        >
+
+        <EditText
+            android:id="@+id/haslo"
+            android:backgroundTint="@color/white"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="-4dp"
+            android:layout_marginTop="0dp"
+            android:layout_width="317.4dp"
+            android:layout_height="57.4dp"
+            android:inputType="textPassword"
+            android:hint="@string/haslo_string"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="@drawable/rectangle_button"
+        android:layout_marginTop="465dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="130dp"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Nazwa użytkownika"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/powtorz_haslo"
+            android:backgroundTint="@color/white"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="-4dp"
+            android:layout_marginTop="0dp"
+            android:layout_width="317.4dp"
+            android:layout_height="57.4dp"
+            android:inputType="textPassword"
+            android:hint="@string/powtorz_haslo_string"
+            />
+    </RelativeLayout>
 
 
-    <EditText
-        android:id="@+id/et_password"
+    <RelativeLayout
+        android:layout_marginTop="660dp"
+        android:layout_marginStart="68dp"
+        android:background="@drawable/rectangle_radius_button"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="65dp"
-        android:ems="10"
-        android:layout_below="@+id/et_username"
-        android:inputType="textPassword"
-        android:hint="Hasło"/>
+        >
 
-    <EditText
-        android:id="@+id/et_cpassword"
+        <Button
+            android:id="@+id/zaloguj"
+            android:backgroundTint="@color/white"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="-4dp"
+            android:layout_marginTop="0dp"
+            android:layout_width="231.4dp"
+            android:layout_height="57.4dp"
+            android:text="@string/zaloguj_string"
+            />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_marginTop="600dp"
+        android:layout_marginStart="68dp"
+        android:background="@drawable/rectangle_radius_button"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="65dp"
-        android:ems="10"
-        android:layout_below="@+id/et_password"
-        android:inputType="textPassword"
-        android:hint="Potwierdź hasło"/>
-
-    <Button
-        android:id="@+id/btn_register"
-        android:backgroundTint="#00320B"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="65dp"
-        android:ems="10"
-        android:text="Zarejestruj"
-        android:textColor="@color/white"
-        android:layout_below="@+id/et_cpassword" />
-
-    <Button
-        android:id="@+id/btn_login"
-        android:backgroundTint="@color/teal_200"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:layout_marginBottom="100dp"
-        android:text="Zaloguj się"
-        android:textColor="@color/white"
-        android:layout_alignParentBottom="true"/>
+        >
+        <Button
+            android:id="@+id/zarejestruj"
+            android:backgroundTint="@color/white"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="-4dp"
+            android:layout_marginTop="0dp"
+            android:layout_width="231.4dp"
+            android:layout_height="57.4dp"
+            android:text="@string/zarejestruj_string"
+            />
+    </RelativeLayout>
 
 </RelativeLayout>
