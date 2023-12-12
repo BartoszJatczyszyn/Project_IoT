@@ -101,7 +101,7 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/vector_ek1"
-            android:src="@drawable/vector_ek1"
+            android:src="@drawable/image_3"
             android:layout_marginStart="80dp"
             android:layout_width="50dp"
             android:layout_height="50dp" />
@@ -159,6 +159,18 @@
             android:layout_height="80dp"
             android:text="@string/historia_naruszen_string" />
     </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="505dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/image_4"
+            android:layout_marginStart="70dp"
+            android:layout_width="30dp"
+            android:layout_height="35dp" />
+    </RelativeLayout>
+
     <RelativeLayout
         android:layout_marginTop="570dp"
         android:layout_centerHorizontal="true"
@@ -176,6 +188,17 @@
             android:layout_width="300dp"
             android:layout_height="80dp"
             android:text="@string/powiadomienia_string" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="590dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/image_5"
+            android:layout_marginStart="70dp"
+            android:layout_width="30dp"
+            android:layout_height="35dp" />
     </RelativeLayout>
 
     <RelativeLayout
