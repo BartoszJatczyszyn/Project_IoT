@@ -2,8 +2,8 @@
     <string name="app_name">AlarmIoT</string>
     <string name="czujniki_string">Czujniki</string>
     <string name="historia_string">Historia</string>
-    <string name="uzbrój_wszystko_string">Uzbrój wszystko</string>
-    <string name="rozbrój_wszystkie_string">Rozbrój wszystkie</string>
+    <string name="uzbroj_wszystko_string">Uzbrój wszystko</string>
+    <string name="rozbroj_wszystkie_string">Rozbrój wszystkie</string>
 	<string name="zaloguj_string">Zaloguj</string>
 	<string name="zarejestruj_string">Zarejestruj</string>
 	<string name="rejestracja_string">Rejestracja</string>
@@ -13,8 +13,8 @@
 	<string name="logowanie_string">Logowanie</string>
 	<string name="alert_string">Alert</string>
 	<string name="menu_string">Menu</string>
-	<string name="za_acz_string">Załącz</string>
-	<string name="wszystkie_string">Wszystkie</string>
+	<string name="zalacz_string">Załącz</string>
+	<string name="zalacz_wszystkie_string">Załącz wszystkie</string>
 	<string name="rozbroj_string">Rozbrój</string>
 	<string name="historia_naruszen_string">Historia naruszeń</string>
 	<string name="powiadomienia_string">Powiadomienia</string>
@@ -23,4 +23,6 @@
 	<string name="czujnik_3_string">Czujnik 3</string>
 	<string name="on_string">on</string>
 	<string name="off_string">off</string>
+	<string name="zmien_haslo">Zmień hasło</string>
+
 </resources>

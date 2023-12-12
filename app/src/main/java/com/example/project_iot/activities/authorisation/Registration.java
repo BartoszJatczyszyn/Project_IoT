@@ -7,15 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project_iot.R;
-import com.example.project_iot.activities.home.Home;
+import com.example.project_iot.activities.main.Menu;
 import com.example.project_iot.database.DatabaseHelperFactory;
 import com.example.project_iot.database.IDatabaseHelper;
-import com.example.project_iot.database.SQLiteDatabaseHelper;
 import com.example.project_iot.utils.DigestUtils;
 
 public class Registration extends AppCompatActivity {
@@ -102,7 +99,7 @@ public class Registration extends AppCompatActivity {
     }
     public void openHome(int userId) {
         activity = null;
-        Intent intent=new Intent(getBaseContext(), Home.class);
+        Intent intent=new Intent(getBaseContext(), Menu.class);
         intent.putExtra("USER_ID", userId);
         startActivity(intent);
     }

@@ -1,4 +1,4 @@
-package com.example.project_iot.activities.home;
+package com.example.project_iot.activities.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,10 +14,9 @@ import com.example.project_iot.activities.authorisation.Login;
 import com.example.project_iot.database.DatabaseHelperFactory;
 import com.example.project_iot.database.IDatabaseHelper;
 import com.example.project_iot.objects.Alarm;
-import com.example.project_iot.utils.SftpHelper;
 
 
-public class Home extends AppCompatActivity {
+public class Menu extends AppCompatActivity {
     Button btn_logout;
 
     private static Activity activity;
@@ -30,7 +29,7 @@ public class Home extends AppCompatActivity {
 
         activity = this;
 
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_menu);
 
         userId = savedInstanceState.getInt("USER_ID");
 
