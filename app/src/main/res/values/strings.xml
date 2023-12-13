@@ -24,5 +24,9 @@
 	<string name="on_string">on</string>
 	<string name="off_string">off</string>
 	<string name="zmien_haslo">Zmień hasło</string>
-
+	<string name="dodatkowe_informacje">Dodatkowe informacje</string>
+	<string name="ustaw_swoja_nazwe">Ustaw swoją nazwę</string>
+	<string name="ustaw_prog_alarmu">Ustaw próg alarmu</string>
+	<string name="notatki">Notatki</string>
+	<string name="zapisz">Zapisz</string>
 </resources>
