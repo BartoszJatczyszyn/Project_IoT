@@ -101,6 +101,10 @@ public class Menu extends AppCompatActivity {
     }
 
     public void logout() {
+
+        getApplicationContext().getSharedPreferences("ProjectIoTPref", 0)
+                .edit().putInt("session_user_id", -1).commit();
+
         activity = null;
         Intent intent=new Intent(this, Login.class);
         startActivity(intent);
