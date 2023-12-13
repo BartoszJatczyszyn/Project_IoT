@@ -1,9 +1,7 @@
 package com.example.project_iot.activities.main;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +33,7 @@ public class Menu extends AppCompatActivity {
     LinearLayout layout_alerts;
 
 
-    private static Activity activity;
+    private Activity activity;
 
     private int userId;
 
@@ -50,12 +47,8 @@ public class Menu extends AppCompatActivity {
 
         setContentView(R.layout.activity_menu);
 
-        userId = this.getIntent().getIntExtra("USER_ID", -1);
-
-        if (userId < 0) {
-            userId = getApplicationContext().getSharedPreferences("ProjectIoTPref", 0)
-                    .getInt("session_user_id", -1);
-        }
+        userId = getApplicationContext().getSharedPreferences("ProjectIoTPref", 0)
+                .getInt("session_user_id", -1);
 
         if (userId < 0) {
             activity = null;
@@ -83,11 +76,13 @@ public class Menu extends AppCompatActivity {
             }
         });
 
-        btn_devices = (Button) findViewById(R.id.czujniki);
+        btn_devices = (Button) findViewById(R.id.lista_czujnikow);
         btn_devices.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "czujniki", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(getBaseContext(), Sensors.class);
+                startActivity(intent);
+                //Toast.makeText(getApplicationContext(), "czujniki", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -210,7 +205,7 @@ public class Menu extends AppCompatActivity {
 
                     for (Alarm alarm : alarms){
 
-                        View view = activity.getLayoutInflater().inflate(R.layout.alert_layout, null);
+                        View view = activity.getLayoutInflater().inflate(R.layout.layout_alert, null);
                         TextView dateTextView = view.findViewById(R.id.date);
                         TextView alertTextView = view.findViewById(R.id.alert);
                         ImageView dismissButton = view.findViewById(R.id.dismiss_button);

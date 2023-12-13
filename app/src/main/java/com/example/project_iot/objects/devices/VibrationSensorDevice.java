@@ -5,7 +5,7 @@ public class VibrationSensorDevice extends ADevice {
     private int vibration;
 
     public VibrationSensorDevice() {
-        super(Type.VIBRATION_SENSOR);
+        super(Type.VIBRATE_SENSOR);
     }
 
     @Override
