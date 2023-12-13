@@ -8,7 +8,7 @@ public abstract class ADevice {
         CAMERA,
         MOTION_SENSOR,
         VIBRATION_SENSOR,
-        BATTERY_SENSOR;
+        ;
     }
 
     private int id;
@@ -29,6 +29,22 @@ public abstract class ADevice {
     public abstract void loadSerializedAdditionalSettings(String json);
 
     public abstract String serializeAdditionalSettings();
+
+    /*
+        Usefull static methods
+     */
+
+    public static ADevice getDeviceInstanceByType(Type type) {
+
+        if (type == ADevice.Type.VIBRATION_SENSOR){
+            return new VibrationSensorDevice();
+        } else if (type == Type.CAMERA){
+            return new CameraDevice();
+        } else if (type == Type.MOTION_SENSOR){
+            return new MotionSensorDevice();
+        }
+        return null;
+    }
 
     /*
         Getters and setters
