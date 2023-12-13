@@ -49,7 +49,7 @@ public interface IDatabaseHelper {
      * @param userId
      * @return
      */
-    public ArrayList<Integer> getUserDevices(int userId);
+    public ArrayList<Integer> getUserDevicesIds(int userId);
 
     /**
      * Loads device

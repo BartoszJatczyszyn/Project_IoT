@@ -49,4 +49,9 @@ dependencies {
     //implementation(files("libs\\mysql-connector-j-8.2.0.jar"))
     implementation(files("libs\\mysql-connector-java-5.1.49.jar"))
 
+    //https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation("com.google.code.gson:gson:2.10.1")
+
+
+
 }

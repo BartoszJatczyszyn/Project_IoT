@@ -3,6 +3,8 @@ package com.example.project_iot.activities.authorisation;
 import android.app.Activity;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -99,6 +101,10 @@ public class Registration extends AppCompatActivity {
     }
     public void openHome(int userId) {
         activity = null;
+
+        getApplicationContext().getSharedPreferences("ProjectIoTPref", 0)
+                .edit().putInt("session_user_id", userId).commit();
+
         Intent intent=new Intent(getBaseContext(), Menu.class);
         intent.putExtra("USER_ID", userId);
         startActivity(intent);

@@ -18,10 +18,16 @@ import com.example.project_iot.objects.Alarm;
 
 public class Menu extends AppCompatActivity {
     Button btn_logout;
+    Button btn_devices;
+    Button btn_armall;
+    Button btn_unarmall;
+    Button btn_alerts_history;
+    Button btn_notifications;
+
 
     private static Activity activity;
 
-    int userId;
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +37,71 @@ public class Menu extends AppCompatActivity {
 
         setContentView(R.layout.activity_menu);
 
-        userId = savedInstanceState.getInt("USER_ID");
+        userId = this.getIntent().getIntExtra("USER_ID", -1);
 
-        btn_logout = (Button) findViewById(R.id.btn_logout);
+        if (userId < 0) {
+            userId = getApplicationContext().getSharedPreferences("ProjectIoTPref", 0)
+                    .getInt("session_user_id", -1);
+        }
 
+        if (userId < 0) {
+            activity = null;
+            Intent intent=new Intent(getBaseContext(), Login.class);
+            startActivity(intent);
+            return;
+        }
+
+        btn_logout = (Button) findViewById(R.id.logout);
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 logout();
             }
         });
+
+        btn_devices = (Button) findViewById(R.id.czujniki);
+        btn_devices.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "czujniki", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btn_armall = (Button) findViewById(R.id.zalacz);
+        btn_armall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                armAll();
+            }
+        });
+
+        btn_unarmall = (Button) findViewById(R.id.rozbroj);
+        btn_unarmall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                unarmAll();
+            }
+        });
+
+        btn_alerts_history = (Button) findViewById(R.id.historia_naruszen);
+        btn_alerts_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "historia_naruszen", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btn_notifications = (Button) findViewById(R.id.powiadomienia);
+        btn_notifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "powiadomienia", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void logout() {
+        activity = null;
         Intent intent=new Intent(this, Login.class);
         startActivity(intent);
     }
@@ -61,7 +119,7 @@ public class Menu extends AppCompatActivity {
                     });
                     return;
                 }
-                for(int deviceId : idh.getUserDevices(userId)){
+                for (int deviceId : idh.getUserDevicesIds(userId)) {
                     idh.updateDeviceActiveStatus(deviceId, true);
                 }
                 idh.close();
@@ -87,7 +145,7 @@ public class Menu extends AppCompatActivity {
                     });
                     return;
                 }
-                for(int deviceId : idh.getUserDevices(userId)){
+                for(int deviceId : idh.getUserDevicesIds(userId)){
                     idh.updateDeviceActiveStatus(deviceId, false);
                 }
                 idh.close();
