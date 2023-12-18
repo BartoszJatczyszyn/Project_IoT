@@ -65,6 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ustaw_swoja_nazwe"
+
         />
     <RelativeLayout
         android:background="@drawable/rectangle_button"
