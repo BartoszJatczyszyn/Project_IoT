@@ -13,7 +13,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/white"
+        android:drawableBottom="@drawable/image_9"
+        android:textColor="@android:color/black" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -50,26 +66,6 @@
             android:layout_marginTop="86dp"
             android:layout_width="wrap_content"
             android:layout_height="5dp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="310dp"
-        android:layout_marginTop="630dp">
-        <View
-            android:background="@drawable/ellipse"
-            android:backgroundTint="@color/white"
-            android:layout_width="70dp"
-            android:layout_height="70dp" />
-        <Button
-            android:id="@+id/add"
-            android:drawableBottom="@drawable/image_9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="250dp"
-            android:layout_marginTop="6dp">
-        </Button>
     </RelativeLayout>
 
 </RelativeLayout>
