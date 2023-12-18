@@ -80,6 +80,13 @@ public interface IDatabaseHelper {
     public void updateDeviceDescription(int deviceId, String newDescription);
 
     /**
+     * Updates device additional settings
+     * @param deviceId
+     * @param json
+     */
+    public void updateDeviceAdditionalSettings(int deviceId, String json);
+
+    /**
      * Updates device location
      * @param deviceId
      * @param newLocation

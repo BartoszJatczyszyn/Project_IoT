@@ -41,7 +41,6 @@ public class ViolationsHistory extends AppCompatActivity {
                 .getInt("session_user_id", -1);
 
         if (userId < 0) {
-            activity = null;
             Intent intent = new Intent(getBaseContext(), Login.class);
             startActivity(intent);
             return;

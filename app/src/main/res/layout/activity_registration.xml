@@ -111,7 +111,7 @@
         >
 
         <Button
-            android:id="@+id/zaloguj"
+            android:id="@+id/info_zapisz"
             android:backgroundTint="@color/white"
             android:textStyle="bold"
             android:gravity="center"
