@@ -104,7 +104,7 @@ public class Sensors extends AppCompatActivity {
 
                     for (ADevice device : devices) {
 
-                        View view = activity.getLayoutInflater().inflate(R.layout.layout_sensor, null);
+                        View view = activity.getLayoutInflater().inflate(R.layout.layout_single_sensor, null);
                         TextView deviceNameTextView = view.findViewById(R.id.device_name);
 
                         Button statusButton = view.findViewById(R.id.btn_status);

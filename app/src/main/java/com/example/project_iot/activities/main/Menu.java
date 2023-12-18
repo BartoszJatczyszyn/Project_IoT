@@ -205,7 +205,7 @@ public class Menu extends AppCompatActivity {
 
                     for (Alarm alarm : alarms){
 
-                        View view = activity.getLayoutInflater().inflate(R.layout.layout_alert, null);
+                        View view = activity.getLayoutInflater().inflate(R.layout.layout_single_alert, null);
                         TextView dateTextView = view.findViewById(R.id.date);
                         TextView alertTextView = view.findViewById(R.id.alert);
                         ImageView dismissButton = view.findViewById(R.id.dismiss_button);
