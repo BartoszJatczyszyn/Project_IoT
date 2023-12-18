@@ -25,6 +25,8 @@ public class Sensors extends AppCompatActivity {
 
     ImageView btn_back;
 
+    Button btn_add;
+
     LinearLayout layout_devices;
 
     private Activity activity;
@@ -45,7 +47,6 @@ public class Sensors extends AppCompatActivity {
                 .getInt("session_user_id", -1);
 
         if (userId < 0) {
-            activity = null;
             Intent intent=new Intent(getBaseContext(), Login.class);
             startActivity(intent);
             return;
@@ -67,6 +68,15 @@ public class Sensors extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getBaseContext(), Menu.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_add = (Button) findViewById(R.id.add);
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getBaseContext(), AddSensor.class);
                 startActivity(intent);
             }
         });
@@ -148,6 +158,15 @@ public class Sensors extends AppCompatActivity {
 
                                     }
                                 }.start();
+                            }
+                        });
+
+                        moreButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent=new Intent(getBaseContext(), AdditionalInformation.class);
+                                intent.putExtra("device_id", device.getId());
+                                startActivity(intent);
                             }
                         });
 

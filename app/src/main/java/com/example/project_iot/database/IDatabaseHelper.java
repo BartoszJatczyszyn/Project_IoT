@@ -52,6 +52,13 @@ public interface IDatabaseHelper {
     public ArrayList<Integer> getUserDevicesIds(int userId);
 
     /**
+     * Updates list of user devices
+     * @param userId
+     * @paramdeviceIds
+     */
+    public void updateUserDevicesIds(int userId, ArrayList<Integer> deviceIds);
+
+    /**
      * Loads device
      * @param deviceId
      * @return device
