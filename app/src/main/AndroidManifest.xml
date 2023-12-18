@@ -59,7 +59,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".activities.main.Change_Password"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.Change_Password" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.main.Add_Sensor"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.Add_Sensor" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
