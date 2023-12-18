@@ -8,15 +8,24 @@
     android:background="@color/gray"
     tools:context=".activities.main.Sensors">
 
+    <LinearLayout
+        android:id="@+id/lista_czujnikow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"></LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
-            android:src="@drawable/image_6"
+            android:id="@+id/czujniki_wroc"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginStart="40dp"
             android:layout_marginTop="45dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:src="@drawable/image_6" />
         <ImageView
             android:src="@drawable/image_3"
             android:layout_marginTop="35dp"
@@ -39,265 +48,6 @@
             android:src="@drawable/line_1"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="86dp"
-            android:layout_width="wrap_content"
-            android:layout_height="5dp" />
-    </RelativeLayout>
-////////////////////////////////////////////////////////////////
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="250dp">
-        <TextView
-            android:textStyle="bold"
-            android:layout_marginLeft="50dp"
-            android:textSize="25dp"
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/czujnik_2_string"
-            />
-        <TextView
-            android:textStyle="bold"
-            android:layout_marginLeft="90dp"
-            android:layout_marginTop="35dp"
-            android:textSize="20dp"
-            android:textColor="@color/green"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/on_string"
-            />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <View
-                android:background="@drawable/rectangle_long"
-                android:layout_marginStart="250dp"
-                android:layout_marginTop="6dp"
-                android:layout_width="109dp"
-                android:layout_height="44dp" />
-            <Button
-                android:id="@+id/wlacznik_1"
-                android:drawableBottom="@drawable/image_7"
-                android:layout_width="50dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="250dp"
-                android:layout_marginTop="6dp"
-                android:backgroundTint="@color/other_gray">
-            </Button>
-            <ImageView
-                android:src="@drawable/line_3"
-                android:layout_marginTop="6dp"
-                android:layout_marginStart="280dp"
-                android:layout_width="44dp"
-                android:layout_height="44dp" />
-            <Button
-                android:id="@+id/dalej_1"
-                android:drawableBottom="@drawable/image_8"
-                android:layout_width="50dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="310dp"
-                android:layout_marginTop="6dp"
-                android:backgroundTint="@color/other_gray">
-            </Button>
-        </RelativeLayout>
-        <ImageView
-            android:src="@drawable/line_2"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="65dp"
-            android:layout_width="wrap_content"
-            android:layout_height="5dp" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp">
-        <TextView
-            android:textStyle="bold"
-            android:layout_marginLeft="50dp"
-            android:textSize="25dp"
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/czujnik_1_string"
-            />
-        <TextView
-            android:textStyle="bold"
-            android:layout_marginLeft="90dp"
-            android:layout_marginTop="35dp"
-            android:textSize="20dp"
-            android:textColor="@color/green"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/on_string"
-            />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <View
-                android:background="@drawable/rectangle_long"
-                android:layout_marginStart="250dp"
-                android:layout_marginTop="6dp"
-                android:layout_width="109dp"
-                android:layout_height="44dp" />
-            <Button
-                android:id="@+id/wlacznik"
-                android:drawableBottom="@drawable/image_7"
-                android:layout_width="50dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="250dp"
-                android:layout_marginTop="6dp"
-                android:backgroundTint="@color/other_gray">
-            </Button>
-            <ImageView
-                android:src="@drawable/line_3"
-                android:layout_marginTop="6dp"
-                android:layout_marginStart="280dp"
-                android:layout_width="44dp"
-                android:layout_height="44dp" />
-            <Button
-                android:id="@+id/dalej"
-                android:drawableBottom="@drawable/image_8"
-                android:layout_width="50dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="310dp"
-                android:layout_marginTop="6dp"
-                android:backgroundTint="@color/other_gray">
-            </Button>
-        </RelativeLayout>
-        <ImageView
-            android:src="@drawable/line_2"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="65dp"
-            android:layout_width="wrap_content"
-            android:layout_height="5dp" />
-    </RelativeLayout>
-////////////////////////////////////////////////////////////////
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="250dp">
-        <TextView
-            android:textStyle="bold"
-            android:layout_marginLeft="50dp"
-            android:textSize="25dp"
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/czujnik_2_string"
-            />
-        <TextView
-            android:textStyle="bold"
-            android:layout_marginLeft="90dp"
-            android:layout_marginTop="35dp"
-            android:textSize="20dp"
-            android:textColor="@color/green"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/on_string"
-            />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <View
-                android:background="@drawable/rectangle_long"
-                android:layout_marginStart="250dp"
-                android:layout_marginTop="6dp"
-                android:layout_width="109dp"
-                android:layout_height="44dp" />
-            <Button
-                android:id="@+id/wlacznik_2"
-                android:drawableBottom="@drawable/image_7"
-                android:layout_width="50dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="250dp"
-                android:layout_marginTop="6dp"
-                android:backgroundTint="@color/other_gray">
-            </Button>
-            <ImageView
-                android:src="@drawable/line_3"
-                android:layout_marginTop="6dp"
-                android:layout_marginStart="280dp"
-                android:layout_width="44dp"
-                android:layout_height="44dp" />
-            <Button
-                android:id="@+id/dalej_2"
-                android:drawableBottom="@drawable/image_8"
-                android:layout_width="50dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="310dp"
-                android:layout_marginTop="6dp"
-                android:backgroundTint="@color/other_gray">
-            </Button>
-        </RelativeLayout>
-        <ImageView
-            android:src="@drawable/line_2"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="65dp"
-            android:layout_width="wrap_content"
-            android:layout_height="5dp" />
-    </RelativeLayout>
-    ///////////////////////////////////////////////////
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="350dp">
-        <TextView
-            android:textStyle="bold"
-            android:layout_marginLeft="50dp"
-            android:textSize="25dp"
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/czujnik_3_string"
-            />
-        <TextView
-            android:textStyle="bold"
-            android:layout_marginLeft="90dp"
-            android:layout_marginTop="35dp"
-            android:textSize="20dp"
-            android:textColor="@color/green"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/on_string"
-            />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <View
-                android:background="@drawable/rectangle_long"
-                android:layout_marginStart="250dp"
-                android:layout_marginTop="6dp"
-                android:layout_width="109dp"
-                android:layout_height="44dp" />
-            <Button
-                android:id="@+id/wlacznik_3"
-                android:drawableBottom="@drawable/image_7"
-                android:layout_width="50dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="250dp"
-                android:layout_marginTop="6dp"
-                android:backgroundTint="@color/other_gray">
-            </Button>
-            <ImageView
-                android:src="@drawable/line_3"
-                android:layout_marginTop="6dp"
-                android:layout_marginStart="280dp"
-                android:layout_width="44dp"
-                android:layout_height="44dp" />
-            <Button
-                android:id="@+id/dalej_3"
-                android:drawableBottom="@drawable/image_8"
-                android:layout_width="50dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="310dp"
-                android:layout_marginTop="6dp"
-                android:backgroundTint="@color/other_gray">
-            </Button>
-        </RelativeLayout>
-        <ImageView
-            android:src="@drawable/line_2"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="65dp"
             android:layout_width="wrap_content"
             android:layout_height="5dp" />
     </RelativeLayout>

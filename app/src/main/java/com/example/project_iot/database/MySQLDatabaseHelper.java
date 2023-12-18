@@ -273,7 +273,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         device.setActive(res.getBoolean("active"));
         device.setLocation(res.getString("location"));
         device.setInsertDate(res.getTimestamp("insert_date"));
-        device.setUpdateDate(res.getTimestamp("update_time"));
+        device.setUpdateDate(res.getTimestamp("update_date"));
         device.loadSerializedAdditionalSettings(res.getString("device_attributes"));
 
         return device;

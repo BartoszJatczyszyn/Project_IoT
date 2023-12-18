@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project_iot.R;
@@ -14,6 +17,9 @@ import com.example.project_iot.activities.authorisation.Login;
 import com.example.project_iot.database.DatabaseHelperFactory;
 import com.example.project_iot.database.IDatabaseHelper;
 import com.example.project_iot.objects.Alarm;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Menu extends AppCompatActivity {
@@ -24,10 +30,14 @@ public class Menu extends AppCompatActivity {
     Button btn_alerts_history;
     Button btn_notifications;
 
+    LinearLayout layout_alerts;
 
-    private static Activity activity;
+
+    private Activity activity;
 
     private int userId;
+
+    private HashMap<View, Alarm> alarmsByView = new HashMap<View, Alarm>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +47,8 @@ public class Menu extends AppCompatActivity {
 
         setContentView(R.layout.activity_menu);
 
-        userId = this.getIntent().getIntExtra("USER_ID", -1);
-
-        if (userId < 0) {
-            userId = getApplicationContext().getSharedPreferences("ProjectIoTPref", 0)
-                    .getInt("session_user_id", -1);
-        }
+        userId = getApplicationContext().getSharedPreferences("ProjectIoTPref", 0)
+                .getInt("session_user_id", -1);
 
         if (userId < 0) {
             activity = null;
@@ -50,6 +56,17 @@ public class Menu extends AppCompatActivity {
             startActivity(intent);
             return;
         }
+
+        /*
+            Alerts
+         */
+
+        layout_alerts = (LinearLayout) findViewById(R.id.alarmy);
+        fillAlerts();
+
+        /*
+            Buttons
+         */
 
         btn_logout = (Button) findViewById(R.id.logout);
         btn_logout.setOnClickListener(new View.OnClickListener() {
@@ -59,11 +76,13 @@ public class Menu extends AppCompatActivity {
             }
         });
 
-        btn_devices = (Button) findViewById(R.id.czujniki);
+        btn_devices = (Button) findViewById(R.id.lista_czujnikow);
         btn_devices.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "czujniki", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(getBaseContext(), Sensors.class);
+                startActivity(intent);
+                //Toast.makeText(getApplicationContext(), "czujniki", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -161,7 +180,7 @@ public class Menu extends AppCompatActivity {
         }.start();
     }
 
-    public void getAlerts() {
+    public void fillAlerts() {
 
         new Thread() {
             @Override
@@ -175,11 +194,59 @@ public class Menu extends AppCompatActivity {
                     return;
                 }
 
-                for (Alarm alarm : idh.getAlarmsWithStatus(userId, Alarm.Status.ACTIVE.name())){
-                    //TODO: add to alert menu
-                }
+                ArrayList<Alarm> alarms = idh.getAlarmsWithStatus(userId, Alarm.Status.ACTIVE.name());
 
                 idh.close();
+
+                activity.runOnUiThread(() -> {
+
+                    layout_alerts.removeAllViews();
+                    alarmsByView.clear();
+
+                    for (Alarm alarm : alarms){
+
+                        View view = activity.getLayoutInflater().inflate(R.layout.layout_alert, null);
+                        TextView dateTextView = view.findViewById(R.id.date);
+                        TextView alertTextView = view.findViewById(R.id.alert);
+                        ImageView dismissButton = view.findViewById(R.id.dismiss_button);
+
+                        dateTextView.setText(alarm.getInsertDate().toString());
+                        alertTextView.setText(alarm.getMessage());
+
+                        dismissButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                new Thread(){
+                                    @Override
+                                    public void run(){
+                                        IDatabaseHelper idh = DatabaseHelperFactory.getMysqlDatabase();
+                                        if (!idh.open()) {
+                                            activity.runOnUiThread(() -> {
+                                                Toast.makeText(getApplicationContext(), "Nie udało się połączyć z systemem.", Toast.LENGTH_SHORT).show();
+                                            });
+                                            return;
+                                        }
+
+                                        idh.updateAlarmStatus(alarmsByView.get(v).getId(), Alarm.Status.ARCHIVED);
+
+                                        idh.close();
+
+                                        activity.runOnUiThread(() -> {
+                                            Toast.makeText(getApplicationContext(), "Zarchiwizowano.", Toast.LENGTH_SHORT).show();
+                                        });
+
+                                        fillAlerts();
+
+                                    }
+                                }.start();
+                            }
+                        });
+
+                        layout_alerts.addView(view);
+                        alarmsByView.put(dismissButton, alarm);
+                    }
+                });
             }
         }.start();
 

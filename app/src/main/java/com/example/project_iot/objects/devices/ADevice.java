@@ -7,7 +7,7 @@ public abstract class ADevice {
     static public enum Type {
         CAMERA,
         MOTION_SENSOR,
-        VIBRATION_SENSOR,
+        VIBRATE_SENSOR,
         ;
     }
 
@@ -36,7 +36,7 @@ public abstract class ADevice {
 
     public static ADevice getDeviceInstanceByType(Type type) {
 
-        if (type == ADevice.Type.VIBRATION_SENSOR){
+        if (type == ADevice.Type.VIBRATE_SENSOR){
             return new VibrationSensorDevice();
         } else if (type == Type.CAMERA){
             return new CameraDevice();

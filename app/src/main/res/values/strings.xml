@@ -18,9 +18,7 @@
 	<string name="rozbroj_string">Rozbrój</string>
 	<string name="historia_naruszen_string">Historia naruszeń</string>
 	<string name="powiadomienia_string">Powiadomienia</string>
-	<string name="czujnik_1_string">Czujnik 1</string>
-	<string name="czujnik_2_string">Czujnik 2</string>
-	<string name="czujnik_3_string">Czujnik 3</string>
+	<string name="czujnik_string">Czujnik</string>
 	<string name="on_string">on</string>
 	<string name="off_string">off</string>
 	<string name="zmien_haslo">Zmień hasło</string>

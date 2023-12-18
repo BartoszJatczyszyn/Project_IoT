@@ -20,7 +20,7 @@ import com.example.project_iot.utils.DigestUtils;
 
 public class Login extends AppCompatActivity {
 
-    private static Activity activity;
+    private Activity activity;
 
     private EditText login;
     private EditText haslo;
@@ -95,13 +95,11 @@ public class Login extends AppCompatActivity {
         });
     }
     public void openHome(int userId) {
-        activity = null;
 
         getApplicationContext().getSharedPreferences("ProjectIoTPref", 0)
                 .edit().putInt("session_user_id", userId).commit();
 
         Intent intent=new Intent(getBaseContext(), Menu.class);
-        intent.putExtra("USER_ID", userId);
         startActivity(intent);
     }
 }
