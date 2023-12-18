@@ -379,18 +379,18 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
     /**
      * get all alarms by user devices (user.getDevices())
      *
-     * @param user
+     * @param userId
      * @return
      */
     @Override
-    public ArrayList<Alarm> getAllAlarms(User user) {
+    public ArrayList<Alarm> getAllAlarms(int userId) {
         PreparedStatement stat = null;
         ResultSet res = null;
 
         ArrayList<Alarm> alarms = new ArrayList<>();
         try {
             stat = conn.prepareStatement(" SELECT * FROM " + ALARMS_TABLE + " WHERE id_user = ?");
-            stat.setInt(1,user.getId());
+            stat.setInt(1, userId);
             res = stat.executeQuery();
 
             while (res.next()) {
@@ -414,11 +414,12 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
     /**
      * get active alarms by user devices (user.getDevices())
      *
-     * @param user
+     * @param userId
+     * @param status
      * @return
      */
     @Override
-    public ArrayList<Alarm> getAlarmsWithStatus(int userId,String status) {
+    public ArrayList<Alarm> getAlarmsWithStatus(int userId, String status) {
         PreparedStatement stat = null;
         ResultSet res = null;
 

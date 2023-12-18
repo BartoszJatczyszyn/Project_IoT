@@ -76,7 +76,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.main.History"
+            android:name=".activities.main.ViolationsHistory"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.History" />
