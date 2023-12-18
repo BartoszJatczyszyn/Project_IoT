@@ -16,7 +16,6 @@ import com.example.project_iot.R;
 import com.example.project_iot.activities.authorisation.Login;
 import com.example.project_iot.database.DatabaseHelperFactory;
 import com.example.project_iot.database.IDatabaseHelper;
-import com.example.project_iot.objects.Alarm;
 import com.example.project_iot.objects.devices.ADevice;
 
 import java.util.ArrayList;

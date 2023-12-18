@@ -106,7 +106,9 @@ public class Menu extends AppCompatActivity {
         btn_alerts_history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "historia_naruszen", Toast.LENGTH_SHORT).show();
+                activity = null;
+                Intent intent=new Intent(getBaseContext(), ViolationsHistory.class);
+                startActivity(intent);
             }
         });
 
