@@ -72,9 +72,17 @@
         android:background="@drawable/rectangle_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <ScrollView
             android:layout_width="300dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp">
+
+            <LinearLayout
+                android:id="@+id/alarmy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></LinearLayout>
+        </ScrollView>
     </RelativeLayout>
 
     <RelativeLayout
@@ -83,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <Button
-            android:id="@+id/czujniki"
+            android:id="@+id/lista_czujnikow"
             android:backgroundTint="@color/yellow"
             android:textStyle="bold"
             android:gravity="center"
