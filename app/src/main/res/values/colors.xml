@@ -7,4 +7,8 @@
 	<color name="red">#C03E3E</color>
 	<color name="gray">#E7E4E4</color>
 	<color name="other_gray">#D9D9D9</color>
+
+	<color name="colorPrimary">#FF00FF</color>
+	<color name="colorPrimaryDark">#FF00FF</color>
+	<color name="colorAccent">#FF00FF</color>
 </resources>

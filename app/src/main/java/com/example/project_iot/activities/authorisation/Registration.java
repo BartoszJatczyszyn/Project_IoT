@@ -3,23 +3,22 @@ package com.example.project_iot.activities.authorisation;
 import android.app.Activity;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project_iot.R;
-import com.example.project_iot.activities.home.Home;
+import com.example.project_iot.activities.main.Menu;
 import com.example.project_iot.database.DatabaseHelperFactory;
 import com.example.project_iot.database.IDatabaseHelper;
-import com.example.project_iot.database.SQLiteDatabaseHelper;
 import com.example.project_iot.utils.DigestUtils;
 
 public class Registration extends AppCompatActivity {
-    private static Activity activity;
+    private Activity activity;
 
     private EditText login;
     private EditText haslo;
@@ -101,9 +100,11 @@ public class Registration extends AppCompatActivity {
         });
     }
     public void openHome(int userId) {
-        activity = null;
-        Intent intent=new Intent(getBaseContext(), Home.class);
-        intent.putExtra("USER_ID", userId);
+
+        getApplicationContext().getSharedPreferences("ProjectIoTPref", 0)
+                .edit().putInt("session_user_id", userId).commit();
+
+        Intent intent=new Intent(getBaseContext(), Menu.class);
         startActivity(intent);
     }
 }

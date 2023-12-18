@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    tools:context=".activities.main.Menu">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView android:id="@+id/image_2"
+            android:src="@drawable/image_2"
+            android:contentDescription="image_2"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="14dp"
+            android:layout_width="70dp"
+            android:layout_height="65.29dp" />
+
+        <TextView
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:textSize="32sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="131dp"
+            android:layout_marginTop="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/menu_string"
+            />
+        <ImageView
+            android:src="@drawable/line_1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="86dp"
+            android:layout_width="wrap_content"
+            android:layout_height="5dp" />
+        <Button
+            android:id="@+id/logout"
+            android:drawableLeft="@drawable/ic_logout"
+            android:backgroundTint="@color/gray"
+            android:layout_marginStart="310dp"
+            android:layout_marginTop="30dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="120dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/alert"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="25dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <TextView
+            android:textStyle="bold"
+            android:textSize="36sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="70dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/alert_string"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="175dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rectangle_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ScrollView
+            android:layout_width="300dp"
+            android:layout_height="100dp">
+
+            <LinearLayout
+                android:id="@+id/alarmy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="290dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/lista_czujnikow"
+            android:backgroundTint="@color/yellow"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="-4dp"
+            android:layout_marginTop="0dp"
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:text="@string/czujniki_string" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="305dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/image_3"
+            android:layout_marginStart="80dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="380dp"
+        android:layout_marginLeft="55dp"
+        android:background="@drawable/rectangle_button_red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/rozbroj"
+            android:backgroundTint="@color/red"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:text="@string/rozbroj_wszystkie_string" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="380dp"
+        android:layout_marginLeft="210dp"
+        android:background="@drawable/rectangle_button_green"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/zalacz"
+            android:backgroundTint="@color/green"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:text="@string/zalacz_wszystkie_string" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="485dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/historia_naruszen"
+            android:backgroundTint="@color/yellow"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="-4dp"
+            android:layout_marginTop="0dp"
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:text="@string/historia_naruszen_string" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="505dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/image_4"
+            android:layout_marginStart="70dp"
+            android:layout_width="30dp"
+            android:layout_height="35dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="570dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/powiadomienia"
+            android:backgroundTint="@color/yellow"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="-4dp"
+            android:layout_marginTop="0dp"
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:text="@string/powiadomienia_string" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="590dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/image_5"
+            android:layout_marginStart="70dp"
+            android:layout_width="30dp"
+            android:layout_height="35dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="650dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/zmien_haslo"
+            android:backgroundTint="@color/white"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="0dp"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+            android:text="@string/zmien_haslo" />
+    </RelativeLayout>
+</RelativeLayout>

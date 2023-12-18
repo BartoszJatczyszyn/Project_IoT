@@ -6,6 +6,9 @@ import com.example.project_iot.objects.Alarm;
 import com.example.project_iot.objects.DeviceLog;
 import com.example.project_iot.objects.User;
 import com.example.project_iot.objects.devices.ADevice;
+import com.example.project_iot.objects.devices.VibrationSensorDevice;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -39,6 +42,8 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
 
         Statement stat = null;
 
+        boolean state = false;
+
         try {
 
             //Class.forName("com.mysql.cj.jdbc.Driver");
@@ -53,15 +58,15 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
             stat = conn.createStatement();
             stat.execute("SELECT 1 FROM " + USERS_TABLE);
 
-            return true;
+            state = true;
 
         } catch (SQLException | ClassNotFoundException ex) {
             Log.e(LOG_TAG, Log.getStackTraceString(ex));
-            return false;
         } finally {
             this.close(stat);
         }
 
+        return state;
 
     }
 
@@ -131,7 +136,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
 
         try {
 
-            stat = conn.prepareStatement("SELECT * FROM " + USERS_TABLE + " WHERE user_name = ?", Statement.RETURN_GENERATED_KEYS);
+            stat = conn.prepareStatement("SELECT * FROM " + USERS_TABLE + " WHERE user_name = ?");
             stat.setString(1, username);
 
             res = stat.executeQuery();
@@ -164,14 +169,14 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
 
         try {
 
-            stat = conn.prepareStatement("SELECT * FROM " + USERS_TABLE + " WHERE user_name = ? AND user_password = ?", Statement.RETURN_GENERATED_KEYS);
+            stat = conn.prepareStatement("SELECT * FROM " + USERS_TABLE + " WHERE user_name = ? AND user_password = ?");
             stat.setString(1, username);
             stat.setString(2, password);
 
             res = stat.executeQuery();
 
             if (res.next()) {
-                userId = res.getInt("user_id");
+                userId = res.getInt("id_user");
             }
 
         } catch (SQLException e) {
@@ -190,8 +195,35 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
      * @return
      */
     @Override
-    public ArrayList<Integer> getUserDevices(int userId) {
-        return null;
+    public ArrayList<Integer> getUserDevicesIds(int userId) {
+
+        PreparedStatement stat = null;
+        ResultSet res = null;
+
+        ArrayList<Integer> devicesIds = new ArrayList<Integer>();
+
+        try {
+            stat = conn.prepareStatement(" SELECT * FROM " + USERS_TABLE + " WHERE id_user = ?");
+            stat.setInt(1, userId);
+            res = stat.executeQuery();
+
+            if (res.next()) {
+                String userDevicesJson = res.getString("user_devices");
+                if (userDevicesJson != null && !userDevicesJson.isEmpty()){
+                    devicesIds = new Gson().fromJson(userDevicesJson, new TypeToken<ArrayList<Integer>>(){}.getType());
+                }
+
+            } else {
+                throw new SQLException("Getting device failed, no devices retrieved.");
+            }
+
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+        } finally {
+            this.close(stat, res);
+        }
+
+        return devicesIds;
     }
 
     /**
@@ -206,22 +238,15 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         PreparedStatement stat = null;
         ResultSet res = null;
 
+        ADevice device = null;
+
         try {
-            stat = conn.prepareStatement(" SELECT * FROM " + DEVICE_TABLE + " WHERE id_device = ?", Statement.RETURN_GENERATED_KEYS);
+            stat = conn.prepareStatement(" SELECT * FROM " + DEVICE_TABLE + " WHERE id_device = ?");
             stat.setInt(1,deviceId);
             res = stat.executeQuery();
 
             if (res.next()) {
-                String deviceType = res.getString("device_type");
-                return new ADevice(ADevice.Type.valueOf(deviceType.toUpperCase())) {
-                    @Override
-                    public void loadSerializedAdditionalSettings(String json) {
-                    }
-                    @Override
-                    public String serializeAdditionalSettings() {
-                        return null;
-                    }
-                };
+                device = loadDevice(res);
             } else {
                 throw new SQLException("Getting device failed, no device retrieved.");
             }
@@ -232,7 +257,26 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
             this.close(stat, res);
         }
 
-        return null;
+        return device;
+    }
+
+    private ADevice loadDevice(ResultSet res) throws SQLException {
+
+        ADevice device;
+
+        ADevice.Type type = ADevice.Type.valueOf(res.getString("device_type").toUpperCase());
+
+        device = ADevice.getDeviceInstanceByType(type);
+        device.setId(res.getInt("id_device"));
+        device.setName(res.getString("device_name"));
+        device.setDescription(res.getString("device_desc"));
+        device.setActive(res.getBoolean("active"));
+        device.setLocation(res.getString("location"));
+        device.setInsertDate(res.getTimestamp("insert_date"));
+        device.setUpdateDate(res.getTimestamp("update_date"));
+        device.loadSerializedAdditionalSettings(res.getString("device_attributes"));
+
+        return device;
     }
 
     /**
@@ -247,7 +291,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         ResultSet res = null;
 
         try {
-            stat = conn.prepareStatement("UPDATE " + DEVICE_TABLE + " SET device_name = ? WHERE id_device = ?", Statement.RETURN_GENERATED_KEYS);
+            stat = conn.prepareStatement("UPDATE " + DEVICE_TABLE + " SET device_name = ? WHERE id_device = ?");
             stat.setString(1,newName);
             stat.setInt(2,deviceId);
             stat.executeUpdate();
@@ -270,7 +314,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         ResultSet res = null;
 
         try {
-            stat = conn.prepareStatement("UPDATE " + DEVICE_TABLE + " SET device_desc = ? WHERE id_device = ?", Statement.RETURN_GENERATED_KEYS);
+            stat = conn.prepareStatement("UPDATE " + DEVICE_TABLE + " SET device_desc = ? WHERE id_device = ?");
             stat.setString(1,newDescription);
             stat.setInt(2,deviceId);
             stat.executeUpdate();
@@ -293,7 +337,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         ResultSet res = null;
 
         try {
-            stat = conn.prepareStatement("UPDATE " + DEVICE_TABLE + " SET location = ? WHERE id_device = ?", Statement.RETURN_GENERATED_KEYS);
+            stat = conn.prepareStatement("UPDATE " + DEVICE_TABLE + " SET location = ? WHERE id_device = ?");
             stat.setString(1,newLocation);
             stat.setInt(2,deviceId);
             stat.executeUpdate();
@@ -321,7 +365,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         }
 
         try {
-            stat = conn.prepareStatement("UPDATE " + DEVICE_TABLE + " SET active = ? WHERE id_device = ?", Statement.RETURN_GENERATED_KEYS);
+            stat = conn.prepareStatement("UPDATE " + DEVICE_TABLE + " SET active = ? WHERE id_device = ?");
             stat.setInt(1,activity);
             stat.setInt(2,deviceId);
             stat.executeUpdate();
@@ -345,7 +389,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
 
         ArrayList<Alarm> alarms = new ArrayList<>();
         try {
-            stat = conn.prepareStatement(" SELECT * FROM " + ALARMS_TABLE + " WHERE id_user = ?", Statement.RETURN_GENERATED_KEYS);
+            stat = conn.prepareStatement(" SELECT * FROM " + ALARMS_TABLE + " WHERE id_user = ?");
             stat.setInt(1,user.getId());
             res = stat.executeQuery();
 
@@ -380,7 +424,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
 
         ArrayList<Alarm> alarms = new ArrayList<>();
         try {
-            stat = conn.prepareStatement(" SELECT * FROM " + ALARMS_TABLE + " WHERE id_user = ? AND alarm_status = ? ", Statement.RETURN_GENERATED_KEYS);
+            stat = conn.prepareStatement(" SELECT * FROM " + ALARMS_TABLE + " WHERE id_user = ? AND alarm_status = ? ");
             stat.setInt(1, userId);
             stat.setString(2,status);
             res = stat.executeQuery();
@@ -415,7 +459,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         ResultSet res = null;
 
         try {
-            stat = conn.prepareStatement("UPDATE " + ALARMS_TABLE + " SET alarm_status = ? WHERE id_alarm = ?", Statement.RETURN_GENERATED_KEYS);
+            stat = conn.prepareStatement("UPDATE " + ALARMS_TABLE + " SET alarm_status = ? WHERE id_alarm = ?");
             stat.setString(1,status.toString().toLowerCase());
             stat.setInt(2,alarmId);
             stat.executeUpdate();
@@ -439,7 +483,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         ResultSet res = null;
 
         try {
-            stat = conn.prepareStatement(" SELECT * FROM " + DEVICE_TABLE + " WHERE serial_number = ?", Statement.RETURN_GENERATED_KEYS);
+            stat = conn.prepareStatement(" SELECT * FROM " + DEVICE_TABLE + " WHERE serial_number = ?");
             stat.setInt(1,serialNumber);
             res = stat.executeQuery();
 
@@ -473,7 +517,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         ResultSet res = null;
 
         try {
-            stat = conn.prepareStatement("SELECT * FROM " + LOGS_TABLE + " WHERE id_device = ? ORDER BY insert_date DESC LIMIT 1", Statement.RETURN_GENERATED_KEYS);
+            stat = conn.prepareStatement("SELECT * FROM " + LOGS_TABLE + " WHERE id_device = ? ORDER BY insert_date DESC LIMIT 1");
             stat.setInt(1,deviceId);
             res = stat.executeQuery();
 

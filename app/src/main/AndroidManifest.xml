@@ -17,12 +17,11 @@
         android:theme="@style/Theme.Project_IoT"
         tools:targetApi="31">
         <activity
-            android:name=".activities.home.Home"
+            android:name=".activities.main.Menu"
             android:exported="true"
             android:theme="@style/Theme.Project_IoT">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -30,11 +29,8 @@
             android:name=".activities.authorisation.Login"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true">
-<!--            android:configChanges="orientation"-->
-<!--            android:screenOrientation="portrait">-->
-            >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.Login" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -43,7 +39,15 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.REGISTRATION" />
+                <action android:name="android.intent.action.Registration" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.main.Sensors"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.Sensors" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
