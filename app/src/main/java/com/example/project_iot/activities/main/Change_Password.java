@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.project_iot.R;
 import com.example.project_iot.activities.authorisation.Login;
 import com.example.project_iot.activities.authorisation.Registration;
+import com.example.project_iot.database.DatabaseHelperFactory;
+import com.example.project_iot.database.IDatabaseHelper;
+import com.example.project_iot.utils.DigestUtils;
 
 public class Change_Password extends AppCompatActivity {
     private static Activity activity;
@@ -25,37 +28,80 @@ public class Change_Password extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
+        activity = this;
 
-        old_password = (EditText) findViewById(R.id.old_password);
-        new_password = (EditText) findViewById(R.id.new_password);
-        repeat_new_password = (EditText) findViewById(R.id.repeat_new_password);
-        change_password = (Button) findViewById(R.id.change_password);
+        old_password = findViewById(R.id.old_password);
+        new_password = findViewById(R.id.new_password);
+        repeat_new_password = findViewById(R.id.repeat_new_password);
+        change_password = findViewById(R.id.change_password);
 
         change_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(changePassword()){
-                    Intent intent = new Intent(Change_Password.this, Menu.class);
-                    startActivity(intent);
-                }
+                changePassword();
             }
         });
     }
 
-    private boolean changePassword() {
-        String old_password = this.old_password.getText().toString();
-        String new_password = this.new_password.getText().toString();
-        String repeated_new_pass = this.repeat_new_password.getText().toString();
-        if (old_password.equals("") || new_password.equals("") || repeated_new_pass.equals("")){
+    private void changePassword() {
+        String old_password = DigestUtils.sha256(this.old_password.getText().toString());
+        String new_password = DigestUtils.sha256(this.new_password.getText().toString());
+        String repeated_new_pass = DigestUtils.sha256(this.repeat_new_password.getText().toString());
+
+        int id_user = getApplicationContext().getSharedPreferences("ProjectIoTPref", 0)
+                .getInt("session_user_id", -1);
+
+        if (old_password.equals("") || new_password.equals("") || repeated_new_pass.equals("")) {
             Toast.makeText(getApplicationContext(), "Zostało puste pole", Toast.LENGTH_SHORT).show();
-            return false;
+            return;
         }
 
-        if(!new_password.equals(repeated_new_pass)){
+        if (!new_password.equals(repeated_new_pass)) {
             Toast.makeText(getApplicationContext(), "Wpisane nowa hasła nie są takie same", Toast.LENGTH_SHORT).show();
-            return false;
+            return;
         }
 
-        return true;
+        new Thread() {
+            public int result;
+
+            @Override
+            public void run() {
+
+
+                IDatabaseHelper iDatabaseHelper = DatabaseHelperFactory.getMysqlDatabase();
+                if (!iDatabaseHelper.open()) {
+                    activity.runOnUiThread(() -> {
+                        Toast.makeText(getApplicationContext(), "Nie udało się połączyć z systemem.", Toast.LENGTH_SHORT).show();
+                    });
+                    return;
+                }
+
+                if (!iDatabaseHelper.isPasswordCorrect(id_user, old_password)) {
+                    activity.runOnUiThread(() -> {
+                        Toast.makeText(getApplicationContext(), "Stare hasło nie jest poprawne", Toast.LENGTH_SHORT).show();
+                    });
+                    return;
+                }
+
+                this.result = iDatabaseHelper.resetPassword(id_user, new_password);
+                if (result == 0) {
+                    activity.runOnUiThread(() -> {
+                        Toast.makeText(getApplicationContext(), "Wystąpił nieoczekiwany błąd.", Toast.LENGTH_SHORT).show();
+                    });
+                    return;
+                }
+
+                activity.runOnUiThread(() -> {
+                    Toast.makeText(getApplicationContext(), "Hasło zostało zmienione!!", Toast.LENGTH_SHORT).show();
+                });
+
+                openHome();
+            }
+        }.start();
+    }
+
+    private void openHome() {
+        Intent intent = new Intent(Change_Password.this, Menu.class);
+        startActivity(intent);
     }
 }

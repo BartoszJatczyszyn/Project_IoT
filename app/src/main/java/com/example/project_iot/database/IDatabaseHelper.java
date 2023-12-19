@@ -121,4 +121,21 @@ public interface IDatabaseHelper {
      */
     public DeviceLog getLatestDataLog(int deviceId);
 
+    /**
+     * Checks weather given password for corresponding
+     * username is correct
+     * @param id_user
+     * @param password
+     * @return boolean
+     */
+    public boolean isPasswordCorrect(int id_user, String password);
+
+    /**
+     * Resets password for a given user
+     * @param id_user
+     * @param password
+     * @return boolean
+     */
+    public int resetPassword(int id_user, String password);
+
 }
