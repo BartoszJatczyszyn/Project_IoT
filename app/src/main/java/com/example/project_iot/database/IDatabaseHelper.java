@@ -130,10 +130,20 @@ public interface IDatabaseHelper {
     public DeviceLog getLatestDataLog(int deviceId);
 
     /**
-     * Update user password
-     * @param userId
-     * @return newPassword
+     * Checks weather given password for corresponding
+     * username is correct
+     * @param id_user
+     * @param password
+     * @return boolean
      */
-    public void updatePassword(int userId, String newPassword);
+    public boolean isPasswordCorrect(int id_user, String password);
+
+    /**
+     * Resets password for a given user
+     * @param id_user
+     * @param password
+     * @return boolean
+     */
+    public int resetPassword(int id_user, String password);
 
 }

@@ -79,7 +79,7 @@ public class Login extends AppCompatActivity {
                             iDatabaseHelper.close();
                             activity.runOnUiThread(() -> {
                                 Toast.makeText(getApplicationContext(), "Zalogowano", Toast.LENGTH_SHORT).show();
-                                openHome(userId);
+                                openHome(userId, username);
                             });
 
                         } else {
@@ -94,10 +94,12 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-    public void openHome(int userId) {
+    public void openHome(int userId, String username) {
 
         getApplicationContext().getSharedPreferences("ProjectIoTPref", 0)
                 .edit().putInt("session_user_id", userId).commit();
+        getApplicationContext().getSharedPreferences("ProjectIoTPref", 0)
+                .edit().putString("session_user_name", username).commit();
 
         Intent intent=new Intent(getBaseContext(), Menu.class);
         startActivity(intent);

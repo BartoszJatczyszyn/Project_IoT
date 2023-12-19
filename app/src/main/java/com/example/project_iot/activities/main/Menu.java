@@ -30,6 +30,8 @@ public class Menu extends AppCompatActivity {
     Button btn_alerts_history;
     Button btn_notifications;
 
+    Button zmien_haslo;
+
     LinearLayout layout_alerts;
 
 
@@ -117,6 +119,15 @@ public class Menu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "powiadomienia", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        zmien_haslo = (Button) findViewById(R.id.zmien_haslo);
+        zmien_haslo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), Change_Password.class);
+                startActivity(intent);
             }
         });
     }

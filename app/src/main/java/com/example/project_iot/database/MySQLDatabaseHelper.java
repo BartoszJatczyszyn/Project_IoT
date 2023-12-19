@@ -557,20 +557,54 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
     }
 
     @Override
-    public void updatePassword(int userId, String newPassword) {
+    public boolean isPasswordCorrect(int id_user, String password) {
         PreparedStatement stat = null;
+        ResultSet res = null;
+
+        boolean result = false;
 
         try {
-            stat = conn.prepareStatement("UPDATE " + USERS_TABLE + " SET user_password = ? WHERE id_user = ? ", Statement.RETURN_GENERATED_KEYS);
-            stat.setString(1,newPassword);
-            stat.setInt(2,userId);
-            stat.executeUpdate();
+
+            stat = conn.prepareStatement("SELECT * FROM " + USERS_TABLE + " WHERE id_user = ? AND user_password = ?");
+            stat.setInt(1, id_user);
+            stat.setString(2, password);
+
+            res = stat.executeQuery();
+
+            if (res.next()) {
+                result = true;
+            }
 
         } catch (SQLException e) {
             Log.e(LOG_TAG, Log.getStackTraceString(e));
         } finally {
-            this.close(stat);
+            this.close(stat, res);
         }
+
+        return result;
+    }
+
+    @Override
+    public int resetPassword(int id_user, String password){
+        PreparedStatement stat = null;
+        ResultSet res = null;
+        int affectedRows = 0;
+        try {
+
+            stat = conn.prepareStatement("UPDATE " + USERS_TABLE + " SET user_password = ? WHERE id_user = ?", Statement.RETURN_GENERATED_KEYS);
+            stat.setString(1, password);
+            stat.setInt(2, id_user);
+
+            stat.executeUpdate();
+
+            affectedRows = stat.executeUpdate();
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+            return affectedRows;
+        } finally {
+            this.close(stat, res);
+        }
+        return affectedRows;
     }
 
     private void close(Statement stat) {
