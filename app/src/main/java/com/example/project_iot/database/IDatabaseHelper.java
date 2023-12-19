@@ -129,4 +129,11 @@ public interface IDatabaseHelper {
      */
     public DeviceLog getLatestDataLog(int deviceId);
 
+    /**
+     * Update user password
+     * @param userId
+     * @return newPassword
+     */
+    public void updatePassword(int userId, String newPassword);
+
 }

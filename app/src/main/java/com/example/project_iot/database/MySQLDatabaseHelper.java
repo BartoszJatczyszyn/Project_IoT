@@ -33,6 +33,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         this.sqlConfig = sqlConfig;
     }
 
+
     /**
      * Opens connection
      * @return true if connection established
@@ -553,6 +554,23 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
 
 
         return null;
+    }
+
+    @Override
+    public void updatePassword(int userId, String newPassword) {
+        PreparedStatement stat = null;
+
+        try {
+            stat = conn.prepareStatement("UPDATE " + USERS_TABLE + " SET user_password = ? WHERE id_user = ? ", Statement.RETURN_GENERATED_KEYS);
+            stat.setString(1,newPassword);
+            stat.setInt(2,userId);
+            stat.executeUpdate();
+
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+        } finally {
+            this.close(stat);
+        }
     }
 
     private void close(Statement stat) {
