@@ -6,17 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
-    tools:context=".activities.main.Add_Sensor">
+    tools:context=".activities.main.AddSensor">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
-            android:src="@drawable/image_6"
+            android:id="@+id/dodaj_sensor_wroc"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginStart="40dp"
             android:layout_marginTop="45dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:src="@drawable/image_6" />
         <ImageView
             android:src="@drawable/image_3"
             android:layout_marginTop="35dp"
@@ -50,7 +52,7 @@
         android:layout_height="wrap_content" >
 
         <EditText
-            android:id="@+id/nazwa"
+            android:id="@+id/add_sensor_nazwa"
             android:backgroundTint="@color/white"
             android:textStyle="bold"
             android:gravity="center"
@@ -63,16 +65,16 @@
             android:hint="Podaj nazwę"
             />
     </RelativeLayout>
+
     <TextView
-        android:textStyle="bold"
-        android:textSize="15sp"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/black"
-        android:layout_marginTop="200dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ustaw swoją nazwe"
-        />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:text="Ustaw swoją nazwe"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
     <RelativeLayout
         android:background="@drawable/rectangle_button"
         android:layout_marginTop="240dp"
@@ -81,7 +83,7 @@
         android:layout_height="wrap_content" >
 
         <EditText
-            android:id="@+id/id"
+            android:id="@+id/add_sensor_serial_number"
             android:backgroundTint="@color/white"
             android:textStyle="bold"
             android:gravity="center"
@@ -91,7 +93,7 @@
             android:layout_marginTop="0dp"
             android:layout_width="317.4dp"
             android:layout_height="57.4dp"
-            android:hint="Podaj ID"
+            android:hint="Podaj numer seryjny"
             />
     </RelativeLayout>
     <TextView
@@ -102,7 +104,7 @@
         android:layout_marginTop="300dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="podaj ID"
+        android:text="Podaj numer seryjny"
         />
     <RelativeLayout
         android:background="@drawable/rectangle_button"
@@ -112,7 +114,7 @@
         android:layout_height="wrap_content" >
 
         <EditText
-            android:id="@+id/haslo"
+            android:id="@+id/add_sensor_haslo"
             android:backgroundTint="@color/white"
             android:textStyle="bold"
             android:gravity="center"
@@ -125,16 +127,16 @@
             android:hint="Podaj hasło"
             />
     </RelativeLayout>
+
     <TextView
-        android:textStyle="bold"
-        android:textSize="15sp"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/black"
-        android:layout_marginTop="400dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="podaj hasło"
-        />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="400dp"
+        android:text="Podaj hasło"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
 
     <RelativeLayout
         android:layout_marginTop="600dp"
@@ -145,16 +147,15 @@
         >
 
         <Button
-            android:id="@+id/zaloguj"
-            android:backgroundTint="@color/white"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:textColor="@color/black"
+            android:id="@+id/add_sensor_add"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
             android:layout_marginTop="0dp"
-            android:layout_width="130dp"
-            android:layout_height="45dp"
-            android:text="@string/zapisz"
-            />
+            android:backgroundTint="@color/white"
+            android:gravity="center"
+            android:text="@string/dodaj"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 </RelativeLayout>

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
-    tools:context=".activities.main.Additional_Information">
+    tools:context=".activities.main.AdditionalInformation">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -129,40 +129,6 @@
             android:layout_width="300dp"
             android:layout_height="150dp" />
     </RelativeLayout>
-        android:text="podaj ID"
-        />
-    <RelativeLayout
-        android:background="@drawable/rectangle_button"
-        android:layout_marginTop="340dp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-
-        <EditText
-            android:id="@+id/haslo"
-            android:backgroundTint="@color/white"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textSize="24sp"
-            android:textColor="@color/black"
-            android:layout_marginLeft="-4dp"
-            android:layout_marginTop="0dp"
-            android:layout_width="317.4dp"
-            android:layout_height="57.4dp"
-            android:hint="Podaj hasło"
-            />
-    </RelativeLayout>
-    <TextView
-        android:textStyle="bold"
-        android:textSize="15sp"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/black"
-        android:layout_marginTop="400dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="podaj hasło"
-        />
-
     <RelativeLayout
         android:layout_marginTop="600dp"
         android:background="@drawable/rectangle_radius_button"

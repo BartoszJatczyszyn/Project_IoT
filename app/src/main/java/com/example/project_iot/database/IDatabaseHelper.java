@@ -52,6 +52,13 @@ public interface IDatabaseHelper {
     public ArrayList<Integer> getUserDevicesIds(int userId);
 
     /**
+     * Updates list of user devices
+     * @param userId
+     * @paramdeviceIds
+     */
+    public void updateUserDevicesIds(int userId, ArrayList<Integer> deviceIds);
+
+    /**
      * Loads device
      * @param deviceId
      * @return device
@@ -88,14 +95,15 @@ public interface IDatabaseHelper {
 
     /**
      * get all alarms by user devices (user.getDevices())
-     * @param user
+     * @param userId
      * @return
      */
-    public ArrayList<Alarm> getAllAlarms(User user);
+    public ArrayList<Alarm> getAllAlarms(int userId);
 
     /**
      * get active alarms by user devices (user.getDevices())
-     * @param user
+     * @param userId
+     * @param status
      * @return
      */
     public ArrayList<Alarm> getAlarmsWithStatus(int userId, String status);

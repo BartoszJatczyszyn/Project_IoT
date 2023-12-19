@@ -52,7 +52,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.main.Additional_Information"
+            android:name=".activities.main.AdditionalInformation"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.Additional_Information" />
@@ -68,7 +68,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.main.Add_Sensor"
+            android:name=".activities.main.AddSensor"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.Add_Sensor" />
@@ -76,7 +76,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.main.History"
+            android:name=".activities.main.ViolationsHistory"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.History" />

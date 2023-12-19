@@ -33,6 +33,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         this.sqlConfig = sqlConfig;
     }
 
+
     /**
      * Opens connection
      * @return true if connection established
@@ -226,6 +227,21 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         return devicesIds;
     }
 
+    public void updateUserDevicesIds(int userId, ArrayList<Integer> deviceIds) {
+        PreparedStatement stat = null;
+
+        try {
+            stat = conn.prepareStatement("UPDATE " + USERS_TABLE + " SET user_devices = ? WHERE id_user = ?");
+            stat.setString(1, new Gson().toJson(deviceIds));
+            stat.setInt(2, userId);
+            stat.executeUpdate();
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+        } finally {
+            this.close(stat, null);
+        }
+    }
+
     /**
      * Loads device
      *
@@ -288,7 +304,6 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
     @Override
     public void updateDeviceName(int deviceId, String newName) {
         PreparedStatement stat = null;
-        ResultSet res = null;
 
         try {
             stat = conn.prepareStatement("UPDATE " + DEVICE_TABLE + " SET device_name = ? WHERE id_device = ?");
@@ -298,7 +313,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         } catch (SQLException e) {
             Log.e(LOG_TAG, Log.getStackTraceString(e));
         } finally {
-            this.close(stat, res);
+            this.close(stat, null);
         }
     }
 
@@ -379,18 +394,18 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
     /**
      * get all alarms by user devices (user.getDevices())
      *
-     * @param user
+     * @param userId
      * @return
      */
     @Override
-    public ArrayList<Alarm> getAllAlarms(User user) {
+    public ArrayList<Alarm> getAllAlarms(int userId) {
         PreparedStatement stat = null;
         ResultSet res = null;
 
         ArrayList<Alarm> alarms = new ArrayList<>();
         try {
             stat = conn.prepareStatement(" SELECT * FROM " + ALARMS_TABLE + " WHERE id_user = ?");
-            stat.setInt(1,user.getId());
+            stat.setInt(1, userId);
             res = stat.executeQuery();
 
             while (res.next()) {
@@ -414,11 +429,12 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
     /**
      * get active alarms by user devices (user.getDevices())
      *
-     * @param user
+     * @param userId
+     * @param status
      * @return
      */
     @Override
-    public ArrayList<Alarm> getAlarmsWithStatus(int userId,String status) {
+    public ArrayList<Alarm> getAlarmsWithStatus(int userId, String status) {
         PreparedStatement stat = null;
         ResultSet res = null;
 
