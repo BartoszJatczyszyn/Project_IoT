@@ -94,7 +94,7 @@
             android:id="@+id/lista_czujnikow"
             android:backgroundTint="@color/yellow"
             android:textStyle="bold"
-            android:gravity="center"
+            android:layout_centerHorizontal="true"
             android:textSize="24sp"
             android:textColor="@color/black"
             android:layout_marginLeft="-4dp"
@@ -124,7 +124,7 @@
             android:id="@+id/rozbroj"
             android:backgroundTint="@color/red"
             android:textStyle="bold"
-            android:gravity="center"
+            android:layout_centerHorizontal="true"
             android:textSize="20sp"
             android:textColor="@color/black"
             android:layout_width="140dp"
@@ -141,7 +141,7 @@
             android:id="@+id/zalacz"
             android:backgroundTint="@color/green"
             android:textStyle="bold"
-            android:gravity="center"
+            android:layout_centerHorizontal="true"
             android:textSize="20sp"
             android:textColor="@color/black"
             android:layout_width="140dp"
@@ -157,7 +157,7 @@
             android:id="@+id/historia_naruszen"
             android:backgroundTint="@color/yellow"
             android:textStyle="bold"
-            android:gravity="center"
+            android:layout_centerHorizontal="true"
             android:textSize="24sp"
             android:textColor="@color/black"
             android:layout_marginLeft="-4dp"
@@ -173,7 +173,7 @@
         android:layout_height="wrap_content">
         <ImageView
             android:src="@drawable/image_4"
-            android:layout_marginStart="70dp"
+            android:layout_marginStart="67dp"
             android:layout_width="30dp"
             android:layout_height="35dp" />
     </RelativeLayout>
@@ -187,7 +187,7 @@
             android:id="@+id/powiadomienia"
             android:backgroundTint="@color/yellow"
             android:textStyle="bold"
-            android:gravity="center"
+            android:layout_centerHorizontal="true"
             android:textSize="24sp"
             android:textColor="@color/black"
             android:layout_marginLeft="-4dp"
@@ -203,7 +203,7 @@
         android:layout_height="wrap_content">
         <ImageView
             android:src="@drawable/image_5"
-            android:layout_marginStart="70dp"
+            android:layout_marginStart="67dp"
             android:layout_width="30dp"
             android:layout_height="35dp" />
     </RelativeLayout>
@@ -217,7 +217,7 @@
             android:id="@+id/zmien_haslo"
             android:backgroundTint="@color/white"
             android:textStyle="bold"
-            android:gravity="center"
+            android:layout_centerHorizontal="true"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:layout_marginTop="0dp"

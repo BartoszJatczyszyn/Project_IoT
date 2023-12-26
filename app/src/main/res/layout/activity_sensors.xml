@@ -14,7 +14,6 @@
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
         android:orientation="vertical">
-
     </LinearLayout>
 
     <Button
@@ -23,12 +22,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="250dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
         android:backgroundTint="@color/white"
-        android:drawableBottom="@drawable/image_9"
+        android:drawableEnd="@drawable/image_9"
         android:textColor="@android:color/black" />
 
     <RelativeLayout
@@ -51,14 +48,13 @@
 
         <TextView
             android:textStyle="bold"
-            android:layout_centerHorizontal="true"
             android:textSize="32sp"
             android:textColor="@color/black"
-            android:layout_marginLeft="131dp"
+            android:layout_marginLeft="150dp"
             android:layout_marginTop="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/czujniki_string"
+            android:text="Czujniki"
             />
         <ImageView
             android:src="@drawable/line_1"

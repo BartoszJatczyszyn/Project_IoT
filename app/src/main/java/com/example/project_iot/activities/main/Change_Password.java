@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,7 @@ public class Change_Password extends AppCompatActivity {
     private EditText new_password;
     private EditText repeat_new_password;
     private Button change_password;
+    ImageView btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +36,20 @@ public class Change_Password extends AppCompatActivity {
         new_password = findViewById(R.id.new_password);
         repeat_new_password = findViewById(R.id.repeat_new_password);
         change_password = findViewById(R.id.change_password);
+        btn_back = (ImageView) findViewById(R.id.zmien_haslo_wroc);
 
         change_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 changePassword();
+            }
+        });
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getBaseContext(), Menu.class);
+                startActivity(intent);
             }
         });
     }
