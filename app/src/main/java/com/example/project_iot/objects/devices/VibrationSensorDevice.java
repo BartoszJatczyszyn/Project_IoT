@@ -16,22 +16,32 @@ public class VibrationSensorDevice extends ADevice {
     @Override
     public void loadSerializedAdditionalSettings(String json) {
 
+        /*
+            Due to Arduino limitations vibration threshold is not stored in json
+         */
+
+        this.threshold = Integer.valueOf(json);
+
+        /*
         HashMap<String, Object> settings = new HashMap<>();
         settings.putAll(new Gson().fromJson(json, new TypeToken<HashMap<String, Object>>(){}.getType()));
 
         if (settings.containsKey("threshold")){
             threshold = (int) ((double) settings.get("threshold"));
         }
+        */
 
     }
 
     @Override
     public String serializeAdditionalSettings() {
 
+        /*
         HashMap<String, Object> settings = new HashMap<>();
         settings.put("threshold", threshold);
-
         return new Gson().toJson(settings);
+        */
+        return threshold + "";
     }
 
     /*

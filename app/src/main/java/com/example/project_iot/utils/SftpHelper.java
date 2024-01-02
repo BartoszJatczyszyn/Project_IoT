@@ -1,15 +1,5 @@
 package com.example.project_iot.utils;
 
-import android.util.Log;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Properties;
-
 import android.content.Context;
 
 import com.jcraft.jsch.ChannelSftp;
@@ -17,6 +7,12 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Properties;
+import java.util.Vector;
 
 public class SftpHelper {
     public SftpHelper(Context context) throws JSchException, IOException {
@@ -31,6 +27,29 @@ public class SftpHelper {
             channelSftp.connect();
         }
         return channelSftp.pwd();
+    }
+
+    public ArrayList<String> getFiles(int userId) throws JSchException, SftpException {
+
+        ArrayList<String> fileNames = new ArrayList<String>();
+
+        Vector vector = channelSftp.ls(this.getWorkingDir()+"/files");
+
+        for (Object o : vector) {
+            ChannelSftp.LsEntry lse = (ChannelSftp.LsEntry) o;
+
+            if (!lse.getFilename().split("_")[0].equals(userId+"")) {
+                System.out.println("KONTINJU");
+                continue;
+            }
+
+            if (lse.getFilename().contains(".jpg") || lse.getFilename().contains(".png"))  {
+                fileNames.add(lse.getFilename());
+                System.out.println(lse.getFilename());
+            }
+        }
+
+        return fileNames;
     }
 
     public void getFile(String remoteSource, String destination) throws JSchException, SftpException {

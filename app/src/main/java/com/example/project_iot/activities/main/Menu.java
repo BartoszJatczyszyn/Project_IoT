@@ -116,7 +116,9 @@ public class Menu extends AppCompatActivity {
         btn_notifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "powiadomienia", Toast.LENGTH_SHORT).show();
+                activity = null;
+                Intent intent=new Intent(getBaseContext(), NotificationsHistory.class);
+                startActivity(intent);
             }
         });
     }
