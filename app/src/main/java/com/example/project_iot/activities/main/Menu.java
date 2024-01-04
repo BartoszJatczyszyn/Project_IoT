@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,9 +18,13 @@ import com.example.project_iot.activities.authorisation.Login;
 import com.example.project_iot.database.DatabaseHelperFactory;
 import com.example.project_iot.database.IDatabaseHelper;
 import com.example.project_iot.objects.Alarm;
+import com.example.project_iot.utils.AlarmWatcher;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 public class Menu extends AppCompatActivity {
@@ -40,6 +45,8 @@ public class Menu extends AppCompatActivity {
     private int userId;
 
     private HashMap<View, Alarm> alarmsByView = new HashMap<View, Alarm>();
+    private ScheduledExecutorService scheduler;
+    private AlarmWatcher alarmWatcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +65,10 @@ public class Menu extends AppCompatActivity {
             startActivity(intent);
             return;
         }
+
+        this.scheduler =  Executors.newScheduledThreadPool(1);
+        this.alarmWatcher = new AlarmWatcher(activity, getApplicationContext());
+        scheduler.scheduleAtFixedRate(alarmWatcher, 2, 10, TimeUnit.SECONDS);
 
         /*
             Alerts
@@ -136,10 +147,12 @@ public class Menu extends AppCompatActivity {
 
         getApplicationContext().getSharedPreferences("ProjectIoTPref", 0)
                 .edit().putInt("session_user_id", -1).commit();
-
+        Log.d("IOT", "Trying to stop scheduled AlarmWatcher");
+        scheduler.shutdown();
+        finish();
         activity = null;
-        Intent intent=new Intent(this, Login.class);
-        startActivity(intent);
+        //Intent intent=new Intent(this, Login.class);
+        // startActivity(intent);
     }
 
     public void armAll() {
@@ -207,10 +220,11 @@ public class Menu extends AppCompatActivity {
                     return;
                 }
 
-                ArrayList<Alarm> alarms = idh.getAlarmsWithStatus(userId, Alarm.Status.ACTIVE.name());
-
+                ArrayList<Alarm> alarmsActive = idh.getAlarmsWithStatus(userId, Alarm.Status.ACTIVE.name());
+                ArrayList<Alarm> alarms = idh.getAlarmsWithStatus(userId, Alarm.Status.SURPRESSED.name());
                 idh.close();
 
+                alarms.addAll(alarmsActive);
                 activity.runOnUiThread(() -> {
 
                     layout_alerts.removeAllViews();
