@@ -28,7 +28,7 @@ public class AlarmWatcher implements Runnable {
     private final NotificationManager notificationManager;
     private final int userId;
     private final IDatabaseHelper databaseHelper;
-    //private final PendingIntent intent;
+    private final PendingIntent intent;
     private final Activity activity;
     public AlarmWatcher(Activity activity, Context context){
         this.context = context;
@@ -44,7 +44,9 @@ public class AlarmWatcher implements Runnable {
         this.userId = context.getSharedPreferences("ProjectIoTPref", 0)
                 .getInt("session_user_id", -1);
         this.databaseHelper = DatabaseHelperFactory.getMysqlDatabase();
-        //this.intent = new PendingIntent(this.activity, Menu.class);
+        Intent intent = new Intent(context, Menu.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        this.intent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
     }
 
     @Override
@@ -58,15 +60,18 @@ public class AlarmWatcher implements Runnable {
         ArrayList<Alarm> alarms = databaseHelper.getAlarmsWithStatus(userId, Alarm.Status.ACTIVE.toString());
         if (alarms.size() != 0) {
             for (Alarm alarm : alarms) {
+                databaseHelper.updateAlarmStatus(alarm.getId(), Alarm.Status.SURPRESSED);
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context, this.channel.getId())
                         .setSmallIcon(R.drawable.alert)
                         .setContentTitle("New alarm!")
                         .setContentText(alarm.getMessage())
+                        .setContentIntent(this.intent)
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT);
                 notificationManager.notify(0, builder.build());
             }
         } else {
             Log.d("IOT", "alarms has size = 0!");
         }
+        databaseHelper.close();
     }
 }

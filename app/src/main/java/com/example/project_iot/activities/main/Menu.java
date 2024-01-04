@@ -220,10 +220,11 @@ public class Menu extends AppCompatActivity {
                     return;
                 }
 
-                ArrayList<Alarm> alarms = idh.getAlarmsWithStatus(userId, Alarm.Status.ACTIVE.name());
-
+                ArrayList<Alarm> alarmsActive = idh.getAlarmsWithStatus(userId, Alarm.Status.ACTIVE.name());
+                ArrayList<Alarm> alarms = idh.getAlarmsWithStatus(userId, Alarm.Status.SURPRESSED.name());
                 idh.close();
 
+                alarms.addAll(alarmsActive);
                 activity.runOnUiThread(() -> {
 
                     layout_alerts.removeAllViews();
