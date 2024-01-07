@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +16,12 @@ import com.example.project_iot.activities.main.Menu;
 import com.example.project_iot.database.DatabaseHelperFactory;
 import com.example.project_iot.database.IDatabaseHelper;
 import com.example.project_iot.database.SQLiteDatabaseHelper;
+import com.example.project_iot.utils.AlarmWatcher;
 import com.example.project_iot.utils.DigestUtils;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Login extends AppCompatActivity {
 
@@ -27,12 +33,12 @@ public class Login extends AppCompatActivity {
     private Button zarejestruj;
 
 
+
     com.example.project_iot.database.SQLiteDatabaseHelper SQLiteDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         activity = this;
 
         setContentView(R.layout.activity_login);
@@ -78,7 +84,7 @@ public class Login extends AppCompatActivity {
                             iDatabaseHelper.close();
                             activity.runOnUiThread(() -> {
                                 Toast.makeText(getApplicationContext(), "Zalogowano", Toast.LENGTH_SHORT).show();
-                                openHome(userId);
+                                openHome(userId, username);
                             });
 
                         } else {
@@ -93,10 +99,12 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-    public void openHome(int userId) {
+    public void openHome(int userId, String username) {
 
         getApplicationContext().getSharedPreferences("ProjectIoTPref", 0)
                 .edit().putInt("session_user_id", userId).commit();
+        getApplicationContext().getSharedPreferences("ProjectIoTPref", 0)
+                .edit().putString("session_user_name", username).commit();
 
         Intent intent=new Intent(getBaseContext(), Menu.class);
         startActivity(intent);

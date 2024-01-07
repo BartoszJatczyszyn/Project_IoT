@@ -35,6 +35,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         this.sqlConfig = sqlConfig;
     }
 
+
     /**
      * Opens connection
      * @return true if connection established
@@ -350,6 +351,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
     @Override
     public void updateDeviceLocation(int deviceId, String newLocation) {
         PreparedStatement stat = null;
+        ResultSet res = null;
 
         try {
             stat = conn.prepareStatement("UPDATE " + DEVICE_TABLE + " SET location = ? WHERE id_device = ?");
@@ -359,7 +361,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         } catch (SQLException e) {
             Log.e(LOG_TAG, Log.getStackTraceString(e));
         } finally {
-            this.close(stat, null);
+            this.close(stat, res);
         }
     }
 
@@ -372,9 +374,10 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
     @Override
     public void updateDeviceActiveStatus(int deviceId, boolean isActive) {
         PreparedStatement stat = null;
+        ResultSet res = null;
 
         int activity = 0;
-        if (isActive) {
+        if (isActive){
             activity = 1;
         }
 
@@ -386,26 +389,9 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         } catch (SQLException e) {
             Log.e(LOG_TAG, Log.getStackTraceString(e));
         } finally {
-            this.close(stat, null);
+            this.close(stat, res);
         }
     }
-
-    @Override
-    public void updateDeviceAdditionalSettings(int deviceId, String json) {
-        PreparedStatement stat = null;
-
-        try {
-            stat = conn.prepareStatement("UPDATE " + DEVICE_TABLE + " SET device_attributes = ? WHERE id_device = ?");
-            stat.setString(1, json);
-            stat.setInt(2,deviceId);
-            stat.executeUpdate();
-        } catch (SQLException e) {
-            Log.e(LOG_TAG, Log.getStackTraceString(e));
-        } finally {
-            this.close(stat, null);
-        }
-    }
-
 
     /**
      * get all alarms by user devices (user.getDevices())
@@ -605,6 +591,57 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
             this.close(stat, res);
         }
         return null;
+    }
+
+    @Override
+    public boolean isPasswordCorrect(int id_user, String password) {
+        PreparedStatement stat = null;
+        ResultSet res = null;
+
+        boolean result = false;
+
+        try {
+
+            stat = conn.prepareStatement("SELECT * FROM " + USERS_TABLE + " WHERE id_user = ? AND user_password = ?");
+            stat.setInt(1, id_user);
+            stat.setString(2, password);
+
+            res = stat.executeQuery();
+
+            if (res.next()) {
+                result = true;
+            }
+
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+        } finally {
+            this.close(stat, res);
+        }
+
+        return result;
+    }
+
+    @Override
+    public int resetPassword(int id_user, String password){
+        PreparedStatement stat = null;
+        ResultSet res = null;
+        int affectedRows = 0;
+        try {
+
+            stat = conn.prepareStatement("UPDATE " + USERS_TABLE + " SET user_password = ? WHERE id_user = ?", Statement.RETURN_GENERATED_KEYS);
+            stat.setString(1, password);
+            stat.setInt(2, id_user);
+
+            stat.executeUpdate();
+
+            affectedRows = stat.executeUpdate();
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+            return affectedRows;
+        } finally {
+            this.close(stat, res);
+        }
+        return affectedRows;
     }
 
     private void close(Statement stat) {

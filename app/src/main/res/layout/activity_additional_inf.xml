@@ -6,13 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
-    tools:context=".activities.main.Change_Password">
+    tools:context=".activities.main.AdditionalInformation">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:id="@+id/zmien_haslo_wroc"
             android:src="@drawable/image_6"
             android:layout_marginStart="40dp"
             android:layout_marginTop="45dp"
@@ -20,13 +19,13 @@
             android:layout_height="30dp" />
         <TextView
             android:textStyle="bold"
-            android:layout_centerHorizontal="true"
             android:textSize="30sp"
             android:textColor="@color/black"
+            android:layout_marginLeft="80dp"
             android:layout_marginTop="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Zmień hasło"
+            android:text="@string/dodatkowe_informacje"
             />
         <ImageView
             android:src="@drawable/line_1"
@@ -44,18 +43,18 @@
         android:layout_height="wrap_content" >
 
         <EditText
-            android:id="@+id/old_password"
-            android:layout_width="317.4dp"
-            android:layout_height="57.4dp"
+            android:id="@+id/nazwa"
+            android:backgroundTint="@color/white"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textColor="@color/black"
             android:layout_marginLeft="-4dp"
             android:layout_marginTop="0dp"
-            android:backgroundTint="@color/white"
-            android:gravity="center"
-            android:hint="Podaj stare hasło"
-            android:inputType="textPassword"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:layout_width="317.4dp"
+            android:layout_height="57.4dp"
+            android:hint="Podaj nazwę"
+            />
     </RelativeLayout>
     <TextView
         android:textStyle="bold"
@@ -65,7 +64,8 @@
         android:layout_marginTop="200dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="podaj stare haslo"
+        android:text="@string/ustaw_swoja_nazwe"
+
         />
     <RelativeLayout
         android:background="@drawable/rectangle_button"
@@ -75,18 +75,18 @@
         android:layout_height="wrap_content" >
 
         <EditText
-            android:id="@+id/new_password"
-            android:layout_width="317.4dp"
-            android:layout_height="57.4dp"
+            android:id="@+id/id"
+            android:backgroundTint="@color/white"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textColor="@color/black"
             android:layout_marginLeft="-4dp"
             android:layout_marginTop="0dp"
-            android:backgroundTint="@color/white"
-            android:gravity="center"
-            android:hint="Podaj nowe hasło"
-            android:inputType="textPassword"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:layout_width="317.4dp"
+            android:layout_height="57.4dp"
+            android:hint="Podaj ID"
+            />
     </RelativeLayout>
     <TextView
         android:textStyle="bold"
@@ -96,40 +96,39 @@
         android:layout_marginTop="300dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="podaj nowe hasło"
+        android:text="@string/ustaw_prog_alarmu"
         />
     <RelativeLayout
-        android:background="@drawable/rectangle_button"
-        android:layout_marginTop="340dp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-
-        <EditText
-            android:id="@+id/repeat_new_password"
-            android:layout_width="317.4dp"
-            android:layout_height="57.4dp"
-            android:layout_marginLeft="-4dp"
-            android:layout_marginTop="0dp"
-            android:backgroundTint="@color/white"
-            android:gravity="center"
-            android:hint="Powtórz nowe hasło"
-            android:textColor="@color/black"
-            android:textSize="24sp"
+        android:layout_marginTop="320dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/alert"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="25dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <TextView
             android:textStyle="bold"
-            tools:inputType="textPassword" />
+            android:textSize="30dp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="70dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/notatki"
+            />
     </RelativeLayout>
-    <TextView
-        android:textStyle="bold"
-        android:textSize="15sp"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/black"
-        android:layout_marginTop="400dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="powtórz nowe hasło"
-        />
 
+    <RelativeLayout
+        android:layout_marginTop="360dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rectangle_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ScrollView
+            android:layout_width="300dp"
+            android:layout_height="150dp" />
+    </RelativeLayout>
     <RelativeLayout
         android:layout_marginTop="600dp"
         android:background="@drawable/rectangle_radius_button"
@@ -139,13 +138,12 @@
         >
 
         <Button
-            android:id="@+id/change_password"
+            android:id="@+id/zaloguj"
             android:backgroundTint="@color/white"
             android:textStyle="bold"
             android:gravity="center"
             android:textSize="18sp"
             android:textColor="@color/black"
-            android:layout_marginTop="0dp"
             android:layout_width="130dp"
             android:layout_height="49dp"
             android:text="@string/zapisz"
