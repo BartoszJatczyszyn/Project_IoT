@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -36,7 +35,7 @@ public class Registration extends AppCompatActivity {
         login = (EditText) findViewById(R.id.login);
         haslo = (EditText) findViewById(R.id.haslo);
         powtorz_haslo = (EditText) findViewById(R.id.powtorz_haslo);
-        zaloguj = (Button) findViewById(R.id.zaloguj);
+        zaloguj = (Button) findViewById(R.id.info_zapisz);
         zarejestruj = (Button) findViewById(R.id.zarejestruj);
         zaloguj.setOnClickListener(new View.OnClickListener() {
             @Override

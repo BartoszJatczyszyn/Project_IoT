@@ -16,10 +16,11 @@ import com.example.project_iot.activities.authorisation.Login;
 import com.example.project_iot.database.DatabaseHelperFactory;
 import com.example.project_iot.database.IDatabaseHelper;
 import com.example.project_iot.objects.Alarm;
+import com.example.project_iot.objects.Notification;
 
 import java.util.ArrayList;
 
-public class ViolationsHistory extends AppCompatActivity {
+public class NotificationsHistory extends AppCompatActivity {
 
     ImageView btn_back;
 
@@ -35,7 +36,7 @@ public class ViolationsHistory extends AppCompatActivity {
 
         activity = this;
 
-        setContentView(R.layout.activity_history_violations);
+        setContentView(R.layout.activity_history_notifications);
 
         userId = getApplicationContext().getSharedPreferences("ProjectIoTPref", 0)
                 .getInt("session_user_id", -1);
@@ -50,14 +51,14 @@ public class ViolationsHistory extends AppCompatActivity {
             Alerts
          */
 
-        layout_devices = (LinearLayout) findViewById(R.id.lista_naruszen);
+        layout_devices = (LinearLayout) findViewById(R.id.lista_powiadomien);
         fillAlerts();
 
         /*
             Buttons
          */
 
-        btn_back = (ImageView) findViewById(R.id.naruszenia_wroc);
+        btn_back = (ImageView) findViewById(R.id.powiadomienia_wroc);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +81,7 @@ public class ViolationsHistory extends AppCompatActivity {
                     return;
                 }
 
-                ArrayList<Alarm> alarms = idh.getAllAlarms(userId);
+                ArrayList<Notification> notifications = idh.getAllNotifications(userId);
 
                 idh.close();
 
@@ -88,14 +89,14 @@ public class ViolationsHistory extends AppCompatActivity {
 
                     layout_devices.removeAllViews();
 
-                    for (Alarm alarm : alarms) {
+                    for (Notification notification : notifications) {
 
                         View view = activity.getLayoutInflater().inflate(R.layout.layout_single_alert_listing, null);
                         TextView dateTextView = view.findViewById(R.id.date);
                         TextView alertTextView = view.findViewById(R.id.alert);
 
-                        dateTextView.setText(alarm.getInsertDate().toString());
-                        alertTextView.setText(alarm.getMessage());
+                        dateTextView.setText(notification.getInsertDate().toString());
+                        alertTextView.setText(notification.getContent());
 
                         layout_devices.addView(view);
                     }

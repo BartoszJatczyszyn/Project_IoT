@@ -86,6 +86,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activities.main.NotificationsHistory"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.NotifHistory" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activities.main.Alert"
             android:exported="true">
             <intent-filter>

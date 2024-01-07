@@ -2,6 +2,7 @@ package com.example.project_iot.database;
 
 import com.example.project_iot.objects.Alarm;
 import com.example.project_iot.objects.DeviceLog;
+import com.example.project_iot.objects.Notification;
 import com.example.project_iot.objects.User;
 import com.example.project_iot.objects.devices.ADevice;
 
@@ -80,6 +81,13 @@ public interface IDatabaseHelper {
     public void updateDeviceDescription(int deviceId, String newDescription);
 
     /**
+     * Updates device additional settings
+     * @param deviceId
+     * @param json
+     */
+    public void updateDeviceAdditionalSettings(int deviceId, String json);
+
+    /**
      * Updates device location
      * @param deviceId
      * @param newLocation
@@ -94,7 +102,7 @@ public interface IDatabaseHelper {
     public void updateDeviceActiveStatus(int deviceId, boolean isActive);
 
     /**
-     * get all alarms by user devices (user.getDevices())
+     * get all alarms by user id
      * @param userId
      * @return
      */
@@ -128,6 +136,13 @@ public interface IDatabaseHelper {
      * @return DeviceLog
      */
     public DeviceLog getLatestDataLog(int deviceId);
+
+    /**
+     * get all notifications by user id
+     * @param userId
+     * @return
+     */
+    public ArrayList<Notification> getAllNotifications(int userId);
 
     /**
      * Checks weather given password for corresponding

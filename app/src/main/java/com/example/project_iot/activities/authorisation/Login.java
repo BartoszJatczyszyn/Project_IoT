@@ -2,7 +2,6 @@ package com.example.project_iot.activities.authorisation;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -48,7 +47,7 @@ public class Login extends AppCompatActivity {
 
         login = (EditText) findViewById(R.id.login);
         haslo = (EditText) findViewById(R.id.haslo);
-        zaloguj = (Button) findViewById(R.id.zaloguj);
+        zaloguj = (Button) findViewById(R.id.info_zapisz);
         zarejestruj = (Button) findViewById(R.id.zarejestruj);
 
         zarejestruj.setOnClickListener(new View.OnClickListener() {

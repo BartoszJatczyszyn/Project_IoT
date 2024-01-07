@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.project_iot.objects.Alarm;
 import com.example.project_iot.objects.DeviceLog;
+import com.example.project_iot.objects.Notification;
 import com.example.project_iot.objects.User;
 import com.example.project_iot.objects.devices.ADevice;
 import com.example.project_iot.objects.devices.VibrationSensorDevice;
@@ -24,6 +25,7 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
     private static String USERS_TABLE = "users";
     private static String DEVICE_TABLE = "devices";
     private static String ALARMS_TABLE = "alarms";
+    private static String NOTIFICATIONS_TABLE = "notifications";
     private static String LOGS_TABLE = "logs";
     private SQLConfig sqlConfig;
 
@@ -391,6 +393,22 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         }
     }
 
+    @Override
+    public void updateDeviceAdditionalSettings(int deviceId, String json) {
+        PreparedStatement stat = null;
+
+        try {
+            stat = conn.prepareStatement("UPDATE " + DEVICE_TABLE + " SET device_attributes = ? WHERE id_device = ?");
+            stat.setString(1, json);
+            stat.setInt(2,deviceId);
+            stat.executeUpdate();
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+        } finally {
+            this.close(stat, null);
+        }
+    }
+
     /**
      * get all alarms by user devices (user.getDevices())
      *
@@ -553,6 +571,41 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         }
 
 
+        return null;
+    }
+
+    /**
+     * get all notifications by user id
+     * @param userId
+     * @return
+     */
+    public ArrayList<Notification> getAllNotifications(int userId) {
+        PreparedStatement stat = null;
+        ResultSet res = null;
+
+        ArrayList<Notification> notifications = new ArrayList<>();
+        try {
+            stat = conn.prepareStatement(" SELECT * FROM " + NOTIFICATIONS_TABLE + " WHERE id_user = ?");
+            stat.setInt(1, userId);
+            res = stat.executeQuery();
+
+            while (res.next()) {
+                Notification not = new Notification();
+                not.setId(res.getInt("id_notification"));
+                not.setType(Notification.Type.valueOf(res.getString("notification_type").toUpperCase()));
+                not.setSummaryType(Notification.SummaryType.valueOf(res.getString("alarm_summary_type").toUpperCase()));
+                not.setContent(res.getString("notification_content"));
+                not.setConfirmed(res.getBoolean("is_confirmed"));
+                not.setInsertDate(res.getTimestamp("insert_date"));
+                not.setUpdateDate(res.getTimestamp("update_date"));
+                notifications.add(not);
+            }
+            return notifications;
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+        } finally {
+            this.close(stat, res);
+        }
         return null;
     }
 
