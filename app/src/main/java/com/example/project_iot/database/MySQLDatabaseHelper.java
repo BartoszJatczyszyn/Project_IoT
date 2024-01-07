@@ -393,6 +393,22 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
         }
     }
 
+    @Override
+    public void updateDeviceAdditionalSettings(int deviceId, String json) {
+        PreparedStatement stat = null;
+
+        try {
+            stat = conn.prepareStatement("UPDATE " + DEVICE_TABLE + " SET device_attributes = ? WHERE id_device = ?");
+            stat.setString(1, json);
+            stat.setInt(2,deviceId);
+            stat.executeUpdate();
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, Log.getStackTraceString(e));
+        } finally {
+            this.close(stat, null);
+        }
+    }
+
     /**
      * get all alarms by user devices (user.getDevices())
      *
