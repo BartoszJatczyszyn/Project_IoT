@@ -151,10 +151,9 @@ public class Menu extends AppCompatActivity {
                 .edit().putInt("session_user_id", -1).commit();
         Log.d("IOT", "Trying to stop scheduled AlarmWatcher");
         scheduler.shutdown();
-        finish();
-        activity = null;
-        //Intent intent=new Intent(this, Login.class);
-        // startActivity(intent);
+        ///finish();
+        Intent intent=new Intent(this, Login.class);
+        startActivity(intent);
     }
 
     public void armAll() {
