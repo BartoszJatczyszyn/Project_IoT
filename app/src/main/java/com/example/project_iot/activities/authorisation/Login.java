@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,13 +14,7 @@ import com.example.project_iot.R;
 import com.example.project_iot.activities.main.Menu;
 import com.example.project_iot.database.DatabaseHelperFactory;
 import com.example.project_iot.database.IDatabaseHelper;
-import com.example.project_iot.database.SQLiteDatabaseHelper;
-import com.example.project_iot.utils.AlarmWatcher;
 import com.example.project_iot.utils.DigestUtils;
-
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class Login extends AppCompatActivity {
 
@@ -34,7 +27,6 @@ public class Login extends AppCompatActivity {
 
 
 
-    com.example.project_iot.database.SQLiteDatabaseHelper SQLiteDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +34,6 @@ public class Login extends AppCompatActivity {
         activity = this;
 
         setContentView(R.layout.activity_login);
-
-        SQLiteDatabaseHelper = new SQLiteDatabaseHelper(this);
 
         login = (EditText) findViewById(R.id.login);
         haslo = (EditText) findViewById(R.id.haslo);

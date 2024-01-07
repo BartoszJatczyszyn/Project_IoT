@@ -7,8 +7,6 @@ public class SQLConfig {
     private String dbName;
     private String dbUser;
     private String dbPass;
-    private boolean isSsl;
-    private int maxPoolSize;
 
     public SQLConfig(String dbHost, int dbPort, String dbName, String dbUser, String dbPass) {
         this.dbHost = dbHost;
@@ -56,21 +54,5 @@ public class SQLConfig {
 
     public void setDbPass(String dbPass) {
         this.dbPass = dbPass;
-    }
-
-    public boolean isSsl() {
-        return isSsl;
-    }
-
-    public void setSsl(boolean ssl) {
-        isSsl = ssl;
-    }
-
-    public int getMaxPoolSize() {
-        return maxPoolSize;
-    }
-
-    public void setMaxPoolSize(int maxPoolSize) {
-        this.maxPoolSize = maxPoolSize;
     }
 }
