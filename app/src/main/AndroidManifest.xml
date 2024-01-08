@@ -93,22 +93,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.main.Alert"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.Alert" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".activities.main.Notify"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.Notify" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
