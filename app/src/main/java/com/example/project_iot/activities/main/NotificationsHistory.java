@@ -24,7 +24,7 @@ public class NotificationsHistory extends AppCompatActivity {
 
     ImageView btn_back;
 
-    LinearLayout layout_devices;
+    LinearLayout layout_notifications;
 
     private Activity activity;
 
@@ -51,7 +51,7 @@ public class NotificationsHistory extends AppCompatActivity {
             Alerts
          */
 
-        layout_devices = (LinearLayout) findViewById(R.id.lista_powiadomien);
+        layout_notifications = (LinearLayout) findViewById(R.id.lista_powiadomien);
         fillAlerts();
 
         /*
@@ -69,6 +69,12 @@ public class NotificationsHistory extends AppCompatActivity {
     }
 
     private void fillAlerts() {
+
+        TextView view = new TextView(activity.getApplicationContext());
+        view.setText("Ładowanie...");
+        view.setTextSize(16f);
+        layout_notifications.addView(view);
+
         new Thread() {
             @Override
             public void run() {
@@ -87,7 +93,15 @@ public class NotificationsHistory extends AppCompatActivity {
 
                 activity.runOnUiThread(() -> {
 
-                    layout_devices.removeAllViews();
+                    layout_notifications.removeAllViews();
+
+                    if (notifications.isEmpty()){
+                        TextView view = new TextView(activity.getApplicationContext());
+                        view.setText("Brak powiadomień.");
+                        view.setTextSize(16f);
+                        layout_notifications.addView(view);
+                        return;
+                    }
 
                     for (Notification notification : notifications) {
 
@@ -98,7 +112,7 @@ public class NotificationsHistory extends AppCompatActivity {
                         dateTextView.setText(notification.getInsertDate().toString());
                         alertTextView.setText(notification.getContent());
 
-                        layout_devices.addView(view);
+                        layout_notifications.addView(view);
                     }
                 });
             }

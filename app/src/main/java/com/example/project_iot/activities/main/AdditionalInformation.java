@@ -27,6 +27,7 @@ import com.jcraft.jsch.SftpException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class AdditionalInformation extends AppCompatActivity {
 
@@ -113,7 +114,6 @@ public class AdditionalInformation extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getBaseContext(), Sensors.class);
-
                 startActivity(intent);
             }
         });
@@ -127,6 +127,8 @@ public class AdditionalInformation extends AppCompatActivity {
         fillDesc(dev);
 
         fillSaveButton(dev);
+
+        fillUnpairButton(dev);
 
         fillCameraFiles(dev);
     }
@@ -280,6 +282,55 @@ public class AdditionalInformation extends AppCompatActivity {
 
                         activity.runOnUiThread(() -> {
                             Toast.makeText(getApplicationContext(), "Zapisano.", Toast.LENGTH_SHORT).show();
+                        });
+
+                    }
+                }.start();
+
+            }
+        });
+
+        layout_additional_info.addView(view);
+    }
+
+    private void fillUnpairButton(ADevice dev) {
+        View view = activity.getLayoutInflater().inflate(R.layout.layout_info_unpair, null);
+
+        Button b = view.findViewById(R.id.info_rozlacz);
+
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new Thread() {
+                    @Override
+                    public void run() {
+
+                        IDatabaseHelper idh = DatabaseHelperFactory.getMysqlDatabase();
+                        if (!idh.open()) {
+                            activity.runOnUiThread(() -> {
+                                Toast.makeText(getApplicationContext(), "Nie udało się połączyć z systemem.", Toast.LENGTH_SHORT).show();
+                            });
+                            return;
+                        }
+
+                        ArrayList<Integer> userDevices = idh.getUserDevicesIds(userId);
+                        ArrayList<Integer> newUserDevices = new ArrayList<Integer>();
+
+                        for (int i : userDevices){
+                            if (i != dev.getId())
+                                newUserDevices.add(i);
+                        }
+
+                        idh.updateUserDevicesIds(userId, newUserDevices);
+
+                        idh.close();
+
+                        activity.runOnUiThread(() -> {
+                            Toast.makeText(getApplicationContext(), "Rozłączono.", Toast.LENGTH_SHORT).show();
+
+                            Intent intent=new Intent(getBaseContext(), Sensors.class);
+                            startActivity(intent);
                         });
 
                     }

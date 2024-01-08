@@ -210,6 +210,11 @@ public class Menu extends AppCompatActivity {
 
     public void fillAlerts() {
 
+        TextView view = new TextView(activity.getApplicationContext());
+        view.setText("Ładowanie...");
+        view.setTextSize(16f);
+        layout_alerts.addView(view);
+
         new Thread() {
             @Override
             public void run() {
@@ -231,6 +236,9 @@ public class Menu extends AppCompatActivity {
                 Collections.sort(alarms);
 
                 idh.close();
+
+                if (activity == null)
+                    return;
 
                 activity.runOnUiThread(() -> {
 
