@@ -11,6 +11,8 @@ import com.jcraft.jsch.SftpException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -33,19 +35,27 @@ public class SftpHelper {
 
         ArrayList<String> fileNames = new ArrayList<String>();
 
-        Vector vector = channelSftp.ls(this.getWorkingDir()+"/files");
+        Vector<ChannelSftp.LsEntry> vector = channelSftp.ls(this.getWorkingDir()+"/files");
 
-        for (Object o : vector) {
-            ChannelSftp.LsEntry lse = (ChannelSftp.LsEntry) o;
+        // Sortuj pliki według daty utworzenia
+        Collections.sort(vector, new Comparator<ChannelSftp.LsEntry>() {
+            @Override
+            public int compare(ChannelSftp.LsEntry entry1, ChannelSftp.LsEntry entry2) {
+                long time1 = entry1.getAttrs().getMTime();
+                long time2 = entry2.getAttrs().getMTime();
+                return -Long.compare(time1, time2);
+            }
+        });
+
+
+        for (ChannelSftp.LsEntry lse : vector) {
 
             if (!lse.getFilename().split("_")[0].equals(deviceId+"")) {
-                System.out.println("KONTINJU");
                 continue;
             }
 
             if (lse.getFilename().contains(".jpg") || lse.getFilename().contains(".png"))  {
                 fileNames.add(lse.getFilename());
-                System.out.println(lse.getFilename());
             }
         }
 

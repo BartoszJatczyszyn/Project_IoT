@@ -38,6 +38,7 @@ public class AdditionalInformation extends AppCompatActivity {
     EditText desc;
 
     EditText vibration;
+    EditText vibrationNow;
 
 
     private Activity activity;
@@ -162,15 +163,22 @@ public class AdditionalInformation extends AppCompatActivity {
             return;
 
         View view = activity.getLayoutInflater().inflate(R.layout.layout_info_short_number, null);
-
         vibration = view.findViewById(R.id.edit_text_number);
         vibration.setHint("Podaj próg alarmu");
         vibration.setText(((VibrationSensorDevice) dev).getThreshold()+"");
-
         TextView tv = view.findViewById(R.id.label_number);
         tv.setText("Próg alarmu");
-
         layout_additional_info.addView(view);
+
+        View view2 = activity.getLayoutInflater().inflate(R.layout.layout_info_short_number, null);
+        vibrationNow = view2.findViewById(R.id.edit_text_number);
+        vibrationNow.setActivated(false);
+        vibrationNow.setFocusable(false);
+        vibrationNow.setEnabled(false);
+        vibrationNow.setHint("Brak danych!");
+        TextView tv2 = view2.findViewById(R.id.label_number);
+        tv2.setText("Aktualny odczyt");
+        layout_additional_info.addView(view2);
     }
 
     private void fillCameraFiles(ADevice dev){
@@ -203,7 +211,13 @@ public class AdditionalInformation extends AppCompatActivity {
                             imageView.setImageURI(Uri.fromFile(imgFile));
 
                             TextView tv = view.findViewById(R.id.label);
-                            tv.setText(fileName.split("_")[1].split("\\.")[0]);
+
+                            String fileNameRaw = fileName.split("_")[1].split("\\.")[0];
+
+                            String fileNameFormatted = fileNameRaw.split("-")[0].substring(0,2)+"-"+fileNameRaw.split("-")[0].substring(2,4)+"-"+fileNameRaw.split("-")[0].substring(4,6);
+                            fileNameFormatted += " " + fileNameRaw.split("-")[1] + ":" + fileNameRaw.split("-")[2];
+
+                            tv.setText(fileNameFormatted);
 
                             activity.runOnUiThread(() -> {
                                 layout_additional_info.addView(view);
@@ -257,6 +271,9 @@ public class AdditionalInformation extends AppCompatActivity {
                             VibrationSensorDevice vdev = (VibrationSensorDevice) dev;
                             vdev.setThreshold(Integer.valueOf(vibration.getText().toString()));
                             idh.updateDeviceAdditionalSettings(vdev.getId(), vdev.serializeAdditionalSettings());
+
+                            vibrationNow.setHint(idh.getLatestDataLog(dev.getId()).getLogContent());
+
                         }
 
                         idh.close();
