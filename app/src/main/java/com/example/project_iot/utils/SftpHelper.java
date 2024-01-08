@@ -29,7 +29,7 @@ public class SftpHelper {
         return channelSftp.pwd();
     }
 
-    public ArrayList<String> getFiles(int userId) throws JSchException, SftpException {
+    public ArrayList<String> getFiles(int deviceId) throws JSchException, SftpException {
 
         ArrayList<String> fileNames = new ArrayList<String>();
 
@@ -38,7 +38,7 @@ public class SftpHelper {
         for (Object o : vector) {
             ChannelSftp.LsEntry lse = (ChannelSftp.LsEntry) o;
 
-            if (!lse.getFilename().split("_")[0].equals(userId+"")) {
+            if (!lse.getFilename().split("_")[0].equals(deviceId+"")) {
                 System.out.println("KONTINJU");
                 continue;
             }

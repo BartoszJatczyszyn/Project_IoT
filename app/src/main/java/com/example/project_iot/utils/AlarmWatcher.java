@@ -21,6 +21,7 @@ import com.example.project_iot.database.IDatabaseHelper;
 import com.example.project_iot.objects.Alarm;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class AlarmWatcher implements Runnable {
     private final Context context;
@@ -57,7 +58,14 @@ public class AlarmWatcher implements Runnable {
             return;
         }
 
-        ArrayList<Alarm> alarms = databaseHelper.getAlarmsWithStatus(userId, Alarm.Status.ACTIVE.toString());
+        //ArrayList<Alarm> alarms = databaseHelper.getAlarmsWithStatus(userId, Alarm.Status.ACTIVE.toString());
+
+        ArrayList<Integer> userDevices = databaseHelper.getUserDevicesIds(userId);
+        ArrayList<Alarm> alarms = new ArrayList<>();
+        for (int deviceId : userDevices)
+            alarms.addAll(databaseHelper.getAlarmsWithStatus(deviceId, userId, Alarm.Status.ACTIVE.name()));
+        Collections.sort(alarms);
+
         if (alarms.size() != 0) {
             for (Alarm alarm : alarms) {
                 databaseHelper.updateAlarmStatus(alarm.getId(), Alarm.Status.SURPRESSED);

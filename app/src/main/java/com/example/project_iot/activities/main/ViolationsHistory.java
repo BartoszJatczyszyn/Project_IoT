@@ -18,6 +18,7 @@ import com.example.project_iot.database.IDatabaseHelper;
 import com.example.project_iot.objects.Alarm;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ViolationsHistory extends AppCompatActivity {
 
@@ -68,6 +69,12 @@ public class ViolationsHistory extends AppCompatActivity {
     }
 
     private void fillAlerts() {
+
+        TextView view = new TextView(activity.getApplicationContext());
+        view.setText("Ładowanie...");
+        view.setTextSize(16f);
+        layout_devices.addView(view);
+
         new Thread() {
             @Override
             public void run() {
@@ -80,26 +87,34 @@ public class ViolationsHistory extends AppCompatActivity {
                     return;
                 }
 
-                ArrayList<Alarm> alarms = idh.getAllAlarms(userId);
+                ArrayList<Integer> userDevices = idh.getUserDevicesIds(userId);
+                ArrayList<Alarm> alarms = new ArrayList<>();
+                for (int deviceId : userDevices)
+                    alarms.addAll(idh.getAlarms(deviceId, userId));
+                Collections.sort(alarms);
 
                 idh.close();
 
                 activity.runOnUiThread(() -> {
-
                     layout_devices.removeAllViews();
-
-                    for (Alarm alarm : alarms) {
-
-                        View view = activity.getLayoutInflater().inflate(R.layout.layout_single_alert_listing, null);
-                        TextView dateTextView = view.findViewById(R.id.date);
-                        TextView alertTextView = view.findViewById(R.id.alert);
-
-                        dateTextView.setText(alarm.getInsertDate().toString());
-                        alertTextView.setText(alarm.getMessage());
-
-                        layout_devices.addView(view);
-                    }
                 });
+
+                for (Alarm alarm : alarms) {
+
+                    activity.runOnUiThread(() -> {
+
+                    View view = activity.getLayoutInflater().inflate(R.layout.layout_single_alert_listing, null);
+                    TextView dateTextView = view.findViewById(R.id.date);
+                    TextView alertTextView = view.findViewById(R.id.alert);
+
+                    dateTextView.setText(alarm.getInsertDate().toString());
+                    alertTextView.setText(alarm.getMessage());
+
+                    layout_devices.addView(view);
+
+                    });
+                }
+
             }
         }.start();
     }

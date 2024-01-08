@@ -189,7 +189,7 @@ public class AdditionalInformation extends AppCompatActivity {
 
                     SftpHelper sftp = new SftpHelper(context);
 
-                    for (String fileName : sftp.getFiles(userId)){
+                    for (String fileName : sftp.getFiles(dev.getId())){
 
                         String systemFileName = filesDir.getPath()+"/"+fileName;
 

@@ -103,18 +103,18 @@ public interface IDatabaseHelper {
 
     /**
      * get all alarms by user id
-     * @param userId
+     * @param deviceId
      * @return
      */
-    public ArrayList<Alarm> getAllAlarms(int userId);
+    public ArrayList<Alarm> getAlarms(int deviceId, int userId);
 
     /**
      * get active alarms by user devices (user.getDevices())
-     * @param userId
+     * @param deviceId
      * @param status
      * @return
      */
-    public ArrayList<Alarm> getAlarmsWithStatus(int userId, String status);
+    public ArrayList<Alarm> getAlarmsWithStatus(int deviceId, int userId, String status);
 
     /**
      * Update alarm status info

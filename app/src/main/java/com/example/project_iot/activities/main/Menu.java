@@ -21,6 +21,7 @@ import com.example.project_iot.objects.Alarm;
 import com.example.project_iot.utils.AlarmWatcher;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -221,17 +222,29 @@ public class Menu extends AppCompatActivity {
                     return;
                 }
 
-                ArrayList<Alarm> alarmsActive = idh.getAlarmsWithStatus(userId, Alarm.Status.ACTIVE.name());
-                ArrayList<Alarm> alarms = idh.getAlarmsWithStatus(userId, Alarm.Status.SURPRESSED.name());
+                ArrayList<Integer> userDevices = idh.getUserDevicesIds(userId);
+                ArrayList<Alarm> alarms = new ArrayList<>();
+                for (int deviceId : userDevices)
+                    alarms.addAll(idh.getAlarmsWithStatus(deviceId, userId, Alarm.Status.ACTIVE.name()));
+                Collections.sort(alarms);
+
                 idh.close();
 
-                alarms.addAll(alarmsActive);
                 activity.runOnUiThread(() -> {
 
                     layout_alerts.removeAllViews();
                     alarmsByView.clear();
 
-                    for (Alarm alarm : alarms){
+                    if (alarms.isEmpty()){
+
+                        TextView view = new TextView(activity.getApplicationContext());
+                        view.setText("Nie ma nowych alarmów.");
+                        view.setTextSize(16f);
+                        layout_alerts.addView(view);
+                        return;
+                    }
+
+                    for (Alarm alarm : alarms) {
 
                         View view = activity.getLayoutInflater().inflate(R.layout.layout_single_alert, null);
                         TextView dateTextView = view.findViewById(R.id.date);
@@ -256,7 +269,7 @@ public class Menu extends AppCompatActivity {
                                             return;
                                         }
 
-                                        idh.updateAlarmStatus(alarmsByView.get(v).getId(), Alarm.Status.ARCHIVED);
+                                        idh.updateAlarmStatus(alarmsByView.get(v).getId(), Alarm.Status.SURPRESSED);
 
                                         idh.close();
 

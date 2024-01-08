@@ -412,27 +412,32 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
     /**
      * get all alarms by user devices (user.getDevices())
      *
-     * @param userId
+     * @param deviceId
      * @return
      */
     @Override
-    public ArrayList<Alarm> getAllAlarms(int userId) {
+    public ArrayList<Alarm> getAlarms(int deviceId, int userId) {
         PreparedStatement stat = null;
         ResultSet res = null;
 
         ArrayList<Alarm> alarms = new ArrayList<>();
         try {
-            stat = conn.prepareStatement(" SELECT * FROM " + ALARMS_TABLE + " WHERE id_user = ?");
-            stat.setInt(1, userId);
+            stat = conn.prepareStatement(" SELECT * FROM " + ALARMS_TABLE + " WHERE id_device = ?");
+            stat.setInt(1, deviceId);
             res = stat.executeQuery();
 
             while (res.next()) {
+
+                if (res.getInt("id_user") != 0 && res.getInt("id_user") != userId)
+                    continue;;
+
                 Alarm alarm = new Alarm();
                 alarm.setStatus(Alarm.Status.valueOf(res.getString("alarm_status").toUpperCase()));
                 alarm.setMessage(res.getString("alarm_message"));
                 alarm.setInsertDate(res.getTimestamp("insert_date"));
                 alarm.setUpdateDate(res.getTimestamp("update_date"));
                 alarm.setId(res.getInt("id_alarm"));
+                alarm.setDevice(this.getDevice(res.getInt("id_device")));
                 alarms.add(alarm);
             }
             return alarms;
@@ -447,29 +452,34 @@ public class MySQLDatabaseHelper implements IDatabaseHelper {
     /**
      * get active alarms by user devices (user.getDevices())
      *
-     * @param userId
+     * @param deviceId
      * @param status
      * @return
      */
     @Override
-    public ArrayList<Alarm> getAlarmsWithStatus(int userId, String status) {
+    public ArrayList<Alarm> getAlarmsWithStatus(int deviceId, int userId, String status) {
         PreparedStatement stat = null;
         ResultSet res = null;
 
         ArrayList<Alarm> alarms = new ArrayList<>();
         try {
-            stat = conn.prepareStatement(" SELECT * FROM " + ALARMS_TABLE + " WHERE id_user = ? AND alarm_status = ? ");
-            stat.setInt(1, userId);
+            stat = conn.prepareStatement(" SELECT * FROM " + ALARMS_TABLE + " WHERE id_device = ? AND alarm_status = ? ");
+            stat.setInt(1, deviceId);
             stat.setString(2,status);
             res = stat.executeQuery();
 
             while (res.next()) {
+
+                if (res.getInt("id_user") != 0 && res.getInt("id_user") != userId)
+                    continue;;
+
                 Alarm alarm = new Alarm();
                 alarm.setStatus(Alarm.Status.valueOf(res.getString("alarm_status").toUpperCase()));
                 alarm.setMessage(res.getString("alarm_message"));
                 alarm.setInsertDate(res.getTimestamp("insert_date"));
                 alarm.setUpdateDate(res.getTimestamp("update_date"));
                 alarm.setId(res.getInt("id_alarm"));
+                alarm.setDevice(this.getDevice(res.getInt("id_device")));
                 alarms.add(alarm);
             }
             return alarms;
