@@ -68,6 +68,7 @@ public class AlarmWatcher implements Runnable {
 
         if (alarms.size() != 0) {
             for (Alarm alarm : alarms) {
+                Log.d("IOT", "Alarm: " + alarm.getMessage());
                 databaseHelper.updateAlarmStatus(alarm.getId(), Alarm.Status.SURPRESSED);
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context, this.channel.getId())
                         .setSmallIcon(R.drawable.alert)

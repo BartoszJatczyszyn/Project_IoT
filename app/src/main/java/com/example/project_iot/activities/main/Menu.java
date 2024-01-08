@@ -224,8 +224,10 @@ public class Menu extends AppCompatActivity {
 
                 ArrayList<Integer> userDevices = idh.getUserDevicesIds(userId);
                 ArrayList<Alarm> alarms = new ArrayList<>();
-                for (int deviceId : userDevices)
+                for (int deviceId : userDevices) {
                     alarms.addAll(idh.getAlarmsWithStatus(deviceId, userId, Alarm.Status.ACTIVE.name()));
+                    alarms.addAll(idh.getAlarmsWithStatus(deviceId, userId, Alarm.Status.SURPRESSED.name()));
+                }
                 Collections.sort(alarms);
 
                 idh.close();
@@ -269,7 +271,7 @@ public class Menu extends AppCompatActivity {
                                             return;
                                         }
 
-                                        idh.updateAlarmStatus(alarmsByView.get(v).getId(), Alarm.Status.SURPRESSED);
+                                        idh.updateAlarmStatus(alarmsByView.get(v).getId(), Alarm.Status.ARCHIVED);
 
                                         idh.close();
 
