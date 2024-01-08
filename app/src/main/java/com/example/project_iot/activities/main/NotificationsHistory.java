@@ -70,10 +70,12 @@ public class NotificationsHistory extends AppCompatActivity {
 
     private void fillAlerts() {
 
-        TextView view = new TextView(activity.getApplicationContext());
-        view.setText("Ładowanie...");
-        view.setTextSize(16f);
-        layout_notifications.addView(view);
+        activity.runOnUiThread(() -> {
+            TextView view = new TextView(activity.getApplicationContext());
+            view.setText("Ładowanie...");
+            view.setTextSize(16f);
+            layout_notifications.addView(view);
+        });
 
         new Thread() {
             @Override

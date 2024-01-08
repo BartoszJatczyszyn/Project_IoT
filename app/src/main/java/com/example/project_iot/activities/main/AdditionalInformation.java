@@ -317,7 +317,7 @@ public class AdditionalInformation extends AppCompatActivity {
                         ArrayList<Integer> userDevices = idh.getUserDevicesIds(userId);
                         ArrayList<Integer> newUserDevices = new ArrayList<Integer>();
 
-                        for (int i : userDevices){
+                        for (int i : userDevices) {
                             if (i != dev.getId())
                                 newUserDevices.add(i);
                         }
