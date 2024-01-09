@@ -1,7 +1,32 @@
 <resources>
     <string name="app_name">AlarmIoT</string>
-    <string name="btn_sensors">Czujniki</string>
-    <string name="btn_history">Historia</string>
-    <string name="btn_arm_all">Uzbrój wszystko</string>
-    <string name="btn_disarm_all">Rozbrój wszystkie</string>
+    <string name="czujniki_string">Czujniki</string>
+    <string name="historia_string">Historia</string>
+    <string name="uzbroj_wszystko_string">Uzbrój wszystko</string>
+    <string name="rozbroj_wszystkie_string">Rozbrój wszystkie</string>
+	<string name="zaloguj_string">Zaloguj</string>
+	<string name="zarejestruj_string">Zarejestruj</string>
+	<string name="rejestracja_string">Rejestracja</string>
+	<string name="powtorz_haslo_string">Powtórz hasło</string>
+	<string name="login_string">Login</string>
+	<string name="haslo_string">Hasło</string>
+	<string name="logowanie_string">Logowanie</string>
+	<string name="alert_string">Alert</string>
+	<string name="menu_string">Menu</string>
+	<string name="zalacz_string">Załącz</string>
+	<string name="zalacz_wszystkie_string">Załącz wszystkie</string>
+	<string name="rozbroj_string">Rozbrój</string>
+	<string name="historia_naruszen_string">Historia naruszeń</string>
+	<string name="powiadomienia_string">Powiadomienia</string>
+	<string name="czujnik_string">Czujnik</string>
+	<string name="on_string">on</string>
+	<string name="off_string">off</string>
+	<string name="zmien_haslo">Zmień hasło</string>
+	<string name="dodatkowe_informacje">Dodatkowe informacje</string>
+	<string name="ustaw_swoja_nazwe">Ustaw swoją nazwę</string>
+	<string name="ustaw_prog_alarmu">Ustaw próg alarmu</string>
+	<string name="notatki">Notatki</string>
+	<string name="zapisz">Zapisz</string>
+	<string name="dodaj">Dodaj</string>
+	<string name="rozlacz">Rozłącz</string>
 </resources>

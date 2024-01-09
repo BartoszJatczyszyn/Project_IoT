@@ -11,15 +11,6 @@ public class User {
 
     private ArrayList<ADevice> devices = new ArrayList<ADevice>();
 
-    public void loadDevices(String json){
-        //TODO: load devices from json array containing ids
-    }
-
-    public String getDevicesListJson() {
-        //TODO: serialize services ids to json array
-        return null;
-    }
-
     /*
         Getters and setters
      */

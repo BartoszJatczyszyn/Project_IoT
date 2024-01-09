@@ -3,6 +3,7 @@ package com.example.project_iot.activities.authorisation;
 import android.app.Activity;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,17 +11,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.project_iot.R;
-import com.example.project_iot.activities.home.Home;
+import com.example.project_iot.activities.main.Menu;
 import com.example.project_iot.database.DatabaseHelperFactory;
 import com.example.project_iot.database.IDatabaseHelper;
-import com.example.project_iot.database.SQLiteDatabaseHelper;
 import com.example.project_iot.utils.DigestUtils;
 
 public class Registration extends AppCompatActivity {
-    private static Activity activity;
+    private Activity activity;
 
-    EditText et_username, et_password, et_cpassword;
-    Button btn_register, btn_login;
+    private EditText login;
+    private EditText haslo;
+    private EditText powtorz_haslo;
+    private Button zaloguj;
+    private Button zarejestruj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +32,12 @@ public class Registration extends AppCompatActivity {
 
         activity = this;
 
-        et_username = (EditText)findViewById(R.id.et_username);
-        et_password = (EditText)findViewById(R.id.et_password);
-        et_cpassword = (EditText)findViewById(R.id.et_cpassword);
-        btn_register = (Button)findViewById(R.id.btn_register);
-        btn_login = (Button)findViewById(R.id.btn_login);
-
-        btn_login.setOnClickListener(new View.OnClickListener() {
+        login = (EditText) findViewById(R.id.login);
+        haslo = (EditText) findViewById(R.id.haslo);
+        powtorz_haslo = (EditText) findViewById(R.id.powtorz_haslo);
+        zaloguj = (Button) findViewById(R.id.info_zapisz);
+        zarejestruj = (Button) findViewById(R.id.zarejestruj);
+        zaloguj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Registration.this, Login.class);
@@ -43,12 +45,12 @@ public class Registration extends AppCompatActivity {
             }
         });
 
-        btn_register.setOnClickListener(new View.OnClickListener() {
+        zarejestruj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = et_username.getText().toString();
-                String password = et_password.getText().toString();
-                String confirm_password = et_cpassword.getText().toString();
+                String username = login.getText().toString();
+                String password = haslo.getText().toString();
+                String confirm_password = powtorz_haslo.getText().toString();
 
                 if(username.equals("") || password.equals("") || confirm_password.equals("")){
                     Toast.makeText(getApplicationContext(), "Zostało puste pole", Toast.LENGTH_SHORT).show();
@@ -74,9 +76,9 @@ public class Registration extends AppCompatActivity {
                                         iDatabaseHelper.close();
                                         activity.runOnUiThread(() -> {
                                             Toast.makeText(getApplicationContext(), "Zarejestrowano i zalogowano", Toast.LENGTH_SHORT).show();
-                                            et_username.setText("");
-                                            et_password.setText("");
-                                            et_cpassword.setText("");
+                                            login.setText("");
+                                            haslo.setText("");
+                                            powtorz_haslo.setText("");
                                             openHome(userId);
                                         });
                                     }
@@ -97,9 +99,11 @@ public class Registration extends AppCompatActivity {
         });
     }
     public void openHome(int userId) {
-        activity = null;
-        Intent intent=new Intent(getBaseContext(), Home.class);
-        intent.putExtra("USER_ID", userId);
+
+        getApplicationContext().getSharedPreferences("ProjectIoTPref", 0)
+                .edit().putInt("session_user_id", userId).commit();
+
+        Intent intent=new Intent(getBaseContext(), Menu.class);
         startActivity(intent);
     }
 }

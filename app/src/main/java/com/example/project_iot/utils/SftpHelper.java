@@ -1,15 +1,5 @@
 package com.example.project_iot.utils;
 
-import android.util.Log;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Properties;
-
 import android.content.Context;
 
 import com.jcraft.jsch.ChannelSftp;
@@ -17,6 +7,14 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Properties;
+import java.util.Vector;
 
 public class SftpHelper {
     public SftpHelper(Context context) throws JSchException, IOException {
@@ -31,6 +29,37 @@ public class SftpHelper {
             channelSftp.connect();
         }
         return channelSftp.pwd();
+    }
+
+    public ArrayList<String> getFiles(int deviceId) throws JSchException, SftpException {
+
+        ArrayList<String> fileNames = new ArrayList<String>();
+
+        Vector<ChannelSftp.LsEntry> vector = channelSftp.ls(this.getWorkingDir()+"/files");
+
+        // Sortuj pliki według daty utworzenia
+        Collections.sort(vector, new Comparator<ChannelSftp.LsEntry>() {
+            @Override
+            public int compare(ChannelSftp.LsEntry entry1, ChannelSftp.LsEntry entry2) {
+                long time1 = entry1.getAttrs().getMTime();
+                long time2 = entry2.getAttrs().getMTime();
+                return -Long.compare(time1, time2);
+            }
+        });
+
+
+        for (ChannelSftp.LsEntry lse : vector) {
+
+            if (!lse.getFilename().split("_")[0].equals(deviceId+"")) {
+                continue;
+            }
+
+            if (lse.getFilename().contains(".jpg") || lse.getFilename().contains(".png"))  {
+                fileNames.add(lse.getFilename());
+            }
+        }
+
+        return fileNames;
     }
 
     public void getFile(String remoteSource, String destination) throws JSchException, SftpException {
