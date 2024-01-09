@@ -181,6 +181,28 @@ public class AdditionalInformation extends AppCompatActivity {
         TextView tv2 = view2.findViewById(R.id.label_number);
         tv2.setText("Aktualny odczyt");
         layout_additional_info.addView(view2);
+
+        new Thread(){
+            @Override
+            public void run() {
+                IDatabaseHelper idh = DatabaseHelperFactory.getMysqlDatabase();
+                if (!idh.open()) {
+                    activity.runOnUiThread(() -> {
+                        Toast.makeText(getApplicationContext(), "Nie udało się połączyć z systemem.", Toast.LENGTH_SHORT).show();
+                    });
+                    return;
+                }
+
+                String hint = idh.getLatestDataLog(dev.getId()).getLogContent();
+
+                idh.close();
+
+                activity.runOnUiThread(() -> {
+                    vibrationNow.setHint(hint);
+                });
+
+            }
+        }.start();
     }
 
     private void fillCameraFiles(ADevice dev){
@@ -273,9 +295,6 @@ public class AdditionalInformation extends AppCompatActivity {
                             VibrationSensorDevice vdev = (VibrationSensorDevice) dev;
                             vdev.setThreshold(Integer.valueOf(vibration.getText().toString()));
                             idh.updateDeviceAdditionalSettings(vdev.getId(), vdev.serializeAdditionalSettings());
-
-                            vibrationNow.setHint(idh.getLatestDataLog(dev.getId()).getLogContent());
-
                         }
 
                         idh.close();
