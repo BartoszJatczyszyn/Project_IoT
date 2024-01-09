@@ -1,9 +1,16 @@
 package com.example.project_iot.activities.main;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +36,9 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Menu extends AppCompatActivity {
+
+    private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 1;
+
     Button btn_logout;
     Button btn_devices;
     Button btn_armall;
@@ -54,6 +64,18 @@ public class Menu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         activity = this;
+
+        // Sprawdź, czy aplikacja ma uprawnienia do wyświetlania notyfikacji
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+                && ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Poproś użytkownika o uprawnienia
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                    NOTIFICATION_PERMISSION_REQUEST_CODE
+            );
+        }
 
         setContentView(R.layout.activity_menu);
 
@@ -305,4 +327,10 @@ public class Menu extends AppCompatActivity {
         }.start();
 
     }
+
+    /*
+        Uprawnienia do notyfikacji
+     */
+
+
 }
